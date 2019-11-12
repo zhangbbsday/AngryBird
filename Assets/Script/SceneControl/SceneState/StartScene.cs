@@ -99,7 +99,7 @@ public class StartScene : SceneState
 
     private void StartGame()
     {
-        Debug.Log("开始游戏!");
+        sceneControl.SetSceneState(new ChooseChapterScene(sceneControl), "ChooseChapterScene");
     }
 
     private void QuitGame()
