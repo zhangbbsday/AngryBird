@@ -24,6 +24,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         instance = GetComponent<GameManager>();
         SystemInitialize();
     }
