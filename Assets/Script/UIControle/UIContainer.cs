@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class UIContainer : MonoBehaviour
 {
-    private List<string> uiName = null;
     [SerializeField]
     private List<GameObject> uiObject = null;
 
@@ -25,34 +24,42 @@ public class UIContainer : MonoBehaviour
     private void Start()
     {
         instance = GetComponent<UIContainer>();
-        uiName = new List<string>();
-        AddName();
     }
 
     public T FindUI<T>(string name)
     {
-        if (name == null || name.Length == 0 || !uiName.Contains(name))
+        if (name == null || name.Length == 0)
             return default;
-        
-        return uiObject[uiName.IndexOf(name)].GetComponent<T>();
+        T find = default;
+
+        foreach (GameObject ui in uiObject)
+        {
+            if (ui.name == name)
+            {
+                find = ui.GetComponent<T>();
+                break;
+            }
+        }
+
+        return find;
     }
 
     public GameObject FindGameObject(string name)
     {
-        if (name == null || name.Length == 0 || !uiName.Contains(name))
+        if (name == null || name.Length == 0)
             return default;
 
-        return uiObject[uiName.IndexOf(name)];
-    }
+        GameObject find = default;
 
-    private void AddName()
-    {
-        if (uiObject == null || uiObject.Count == 0)
-            return;
-        
-        foreach(GameObject ui in uiObject)
+        foreach (GameObject ui in uiObject)
         {
-            uiName.Add(ui.name);
+            if (ui.name == name)
+            {
+                find = ui;
+                break;
+            }
         }
+
+        return find;
     }
 }

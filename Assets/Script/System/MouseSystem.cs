@@ -7,12 +7,11 @@ public class MouseSystem
     private Texture2D normalCursor;
     private Texture2D clickCursor;
     private Texture2D pressCursor;
-
-    public MouseSystem(Texture2D normal, Texture2D click, Texture2D press)
+    public MouseSystem(Texture2D[] cursors)
     {
-        normalCursor = normal;
-        clickCursor = click;
-        pressCursor = press;
+        normalCursor = cursors[0];
+        clickCursor = cursors[1];
+        pressCursor = cursors[2];
     }
 
     public void UpdateCursor()

@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Texture2D[] cursor;
-    public AudioSystem AudioSystem { get; private set; }
-    public MouseSystem MouseSystem { get; private set; }
+    public Texture2D[] cursors;
+    public AudioClip[] music;
+    public AudioClip[] sounds;
+
+    public AudioSystem AudioSystemControl { get; private set; }
+    public MouseSystem MouseSystemControl { get; private set; }
 
     private static GameManager instance;
+    private AudioSource audioSource;
     public static GameManager Instance
     {
         get
@@ -24,14 +28,17 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if (Instance != null)
+        if (instance != null)
         {
             Destroy(gameObject);
             return;
         }
 
         instance = GetComponent<GameManager>();
+        audioSource = GetComponent<AudioSource>();
+
         SystemInitialize();
+        ClearSystemArray();
     }
 
     private void Update()
@@ -41,12 +48,25 @@ public class GameManager : MonoBehaviour
 
     private void SystemInitialize()
     {
-        AudioSystem = new AudioSystem();
-        MouseSystem = new MouseSystem(cursor[0], cursor[1], cursor[2]);
+        AudioSystemControl = new AudioSystem(music, sounds);
+        MouseSystemControl = new MouseSystem(cursors);
+
+        AudioSystemControl.Play(audioSource, AudioSystem.MusicName.Title, true);
+    }
+
+    /// <summary>
+    /// 释放空间
+    /// </summary>
+    private void ClearSystemArray()
+    {
+        cursors = null;
+        music = null;
+        sounds = null;
     }
 
     private void SystemUpdate()
     {
-        MouseSystem.UpdateCursor();
+        MouseSystemControl.UpdateCursor();
+        AudioSystemControl.AudioUpdate(audioSource);
     }
 }
