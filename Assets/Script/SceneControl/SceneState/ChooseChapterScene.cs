@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ChooseChapterScene : SceneState
 {
+    
     public ChooseChapterScene(SceneControl sceneControl) : base(sceneControl)
     {
 
@@ -12,8 +13,9 @@ public class ChooseChapterScene : SceneState
 
     public override void IntoScene()
     {
-        UIContainer.Instacne.FindUI<Button>("Back").onClick.AddListener(() => Back());
-        UIContainer.Instacne.FindUI<Button>("Chapter1").onClick.AddListener(() => Chapter1());
+        AddStringMethod();
+        LinkButton();
+        LinkOtherUI();
     }
 
     public override void OutScene()
@@ -25,6 +27,11 @@ public class ChooseChapterScene : SceneState
     {
         
     }
+
+    protected override void AddStringMethod()
+    {
+       stringMethod = new string[] { "Back", "Chapter1" };
+}
 
     private void Chapter1()
     {

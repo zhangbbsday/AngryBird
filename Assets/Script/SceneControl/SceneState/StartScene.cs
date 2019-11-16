@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Reflection;
 
 public class StartScene : SceneState
 {
+   
     private RectTransform[] moveGroud = new RectTransform[2];
     private RectTransform[] moveBackgroud = new RectTransform[2];
     private GameObject optionPress;
@@ -28,23 +30,10 @@ public class StartScene : SceneState
 
     public override void IntoScene()
     {
-        UIContainer.Instacne.FindUI<Button>("StartGame").onClick.AddListener(() => StartGame());
-        UIContainer.Instacne.FindUI<Button>("Option").onClick.AddListener(() => Option());
-        UIContainer.Instacne.FindUI<Button>("Quit").onClick.AddListener(() => QuitGame());
-        UIContainer.Instacne.FindUI<Button>("More").onClick.AddListener(() => More());
-        UIContainer.Instacne.FindUI<Button>("Audio").onClick.AddListener(() => Audio());
-        UIContainer.Instacne.FindUI<Button>("Info").onClick.AddListener(() => Info());
-
-        moveGroud[0] = UIContainer.Instacne.FindUI<RectTransform>("GroundGroup");
-        moveGroud[1] = GameObject.Instantiate(moveGroud[0].gameObject, moveGroud[0].transform.parent).GetComponent<RectTransform>();
-        moveGroud[1].localPosition = moveGroudStart;
-
-        moveBackgroud[0] = UIContainer.Instacne.FindUI<RectTransform>("MoveGroud");
-        moveBackgroud[1] = GameObject.Instantiate(moveBackgroud[0].gameObject, moveBackgroud[0].transform.parent).GetComponent<RectTransform>();
-        moveBackgroud[1].localPosition = moveBackgroudStart;
-
-        optionPress = UIContainer.Instacne.FindGameObject("OptionPress");
-        morePress = UIContainer.Instacne.FindGameObject("MorePress");
+        AddStringMethod();
+        LinkButton();
+        LinkOtherUI();
+        StartAudio();
     }
 
     public override void OutScene()
@@ -59,6 +48,25 @@ public class StartScene : SceneState
         CreateRandomBird();
     }
 
+    protected override void AddStringMethod()
+    {
+        stringMethod = new string[] { "StartGame", "Option", "Quit", "More", "Audio", "Info" };
+    }
+    protected override void LinkOtherUI()
+    {
+        moveGroud[0] = UIContainer.Instacne.FindUI<RectTransform>("GroundGroup");
+        moveGroud[1] = GameObject.Instantiate(moveGroud[0].gameObject, moveGroud[0].transform.parent).GetComponent<RectTransform>();
+        moveGroud[1].localPosition = moveGroudStart;
+
+        moveBackgroud[0] = UIContainer.Instacne.FindUI<RectTransform>("MoveGroud");
+        moveBackgroud[1] = GameObject.Instantiate(moveBackgroud[0].gameObject, moveBackgroud[0].transform.parent).GetComponent<RectTransform>();
+        moveBackgroud[1].localPosition = moveBackgroudStart;
+
+        optionPress = UIContainer.Instacne.FindGameObject("OptionPress");
+        morePress = UIContainer.Instacne.FindGameObject("MorePress");
+    }
+
+    #region ButtonMethod
     private void MoveGround()
     {
         if (moveGroud[1].localPosition.x > moveGroudOffest)
@@ -74,7 +82,6 @@ public class StartScene : SceneState
         }
         moveGroud[0].localPosition += Vector3.left * moveSpeed * Time.deltaTime;
     }
-
     private void MoveBackground()
     {
         if (moveBackgroud[1].localPosition.x > moveBackgroudOffest)
@@ -90,23 +97,19 @@ public class StartScene : SceneState
         }
         moveBackgroud[0].localPosition += Vector3.left * moveBackgroundSpeed * Time.deltaTime;
     }
-
     private void CreateRandomBird()
     {
         //产生随机的鸟
         //等后面再做
     }
-
     private void StartGame()
     {
         sceneControl.SetSceneState(new ChooseChapterScene(sceneControl), "ChooseChapterScene");
     }
-
-    private void QuitGame()
+    private void Quit()
     {
         Application.Quit();
     }
-
     private void Option()
     {
         if (isClickedOption)
@@ -115,12 +118,10 @@ public class StartScene : SceneState
             optionPress.SetActive(true);
         isClickedOption = !isClickedOption;
     }
-
     private void Info()
     {
         Debug.Log("信息!");
     }
-
     private void More()
     {
         if (isClickedMore)
@@ -129,7 +130,6 @@ public class StartScene : SceneState
             morePress.SetActive(true);
         isClickedMore = !isClickedMore;
     }
-
     private void Audio()
     {
         if (GameManager.Instance.AudioSystemControl.IsOpenMusic)
@@ -142,5 +142,14 @@ public class StartScene : SceneState
             GameManager.Instance.AudioSystemControl.IsOpenMusic = true;
             optionPress.transform.Find("Off").gameObject.SetActive(false);
         }
+    }
+    #endregion
+
+    private void StartAudio()
+    {
+        if (GameManager.Instance.AudioSystemControl.IsOpenMusic)
+            optionPress.transform.Find("Off").gameObject.SetActive(false);
+        else
+            optionPress.transform.Find("Off").gameObject.SetActive(true);
     }
 }

@@ -12,7 +12,9 @@ public class ChooseLevelScene : SceneState
 
     public override void IntoScene()
     {
-        UIContainer.Instacne.FindUI<Button>("Back").onClick.AddListener(() => Back());
+        AddStringMethod();
+        LinkButton();
+        LinkOtherUI();
     }
 
     public override void OutScene()
@@ -25,8 +27,17 @@ public class ChooseLevelScene : SceneState
 
     }
 
+    protected override void AddStringMethod()
+    {
+        stringMethod = new string[] { "Back", "Level1"};
+    }
     private void Back()
     {
         sceneControl.SetSceneState(new ChooseChapterScene(sceneControl), "ChooseChapterScene");
+    }
+
+    private void Level1()
+    {
+        sceneControl.SetSceneState(new LevelScene(sceneControl, 1), "Level1");
     }
 }

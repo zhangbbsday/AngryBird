@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public Texture2D[] cursors;
     public AudioClip[] music;
     public AudioClip[] sounds;
-
+    public bool IsPasue { get; private set; }
     public AudioSystem AudioSystemControl { get; private set; }
     public MouseSystem MouseSystemControl { get; private set; }
 
@@ -46,6 +46,19 @@ public class GameManager : MonoBehaviour
         SystemUpdate();
     }
 
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        IsPasue = true;
+    }
+
+    public void RecoverGame()
+    {
+        Time.timeScale = 1;
+        IsPasue = false;
+    }
+
+    #region SystemControl
     private void SystemInitialize()
     {
         AudioSystemControl = new AudioSystem(music, sounds);
@@ -69,4 +82,6 @@ public class GameManager : MonoBehaviour
         MouseSystemControl.UpdateCursor();
         AudioSystemControl.AudioUpdate(audioSource);
     }
+    #endregion
+
 }
