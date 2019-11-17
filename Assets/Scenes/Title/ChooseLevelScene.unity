@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 14612315}
   - component: {fileID: 14612314}
   m_Layer: 5
-  m_Name: Level2
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,7 +240,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4127019804496108478, guid: 293550d36d2e24349acc04711e6b6366,
+  m_Sprite: {fileID: 2541792876376491632, guid: 293550d36d2e24349acc04711e6b6366,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -459,7 +459,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &244622519
 RectTransform:
   m_ObjectHideFlags: 0
@@ -685,7 +685,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &468526531
 RectTransform:
   m_ObjectHideFlags: 0
@@ -759,7 +759,7 @@ GameObject:
   - component: {fileID: 843103920}
   - component: {fileID: 843103919}
   m_Layer: 5
-  m_Name: Level5
+  m_Name: 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -865,7 +865,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4127019804496108478, guid: 293550d36d2e24349acc04711e6b6366,
+  m_Sprite: {fileID: 2541792876376491632, guid: 293550d36d2e24349acc04711e6b6366,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -901,7 +901,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &943088164
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1078,7 +1078,7 @@ GameObject:
   - component: {fileID: 1066764146}
   - component: {fileID: 1066764145}
   m_Layer: 5
-  m_Name: Level3
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1184,7 +1184,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4127019804496108478, guid: 293550d36d2e24349acc04711e6b6366,
+  m_Sprite: {fileID: 2541792876376491632, guid: 293550d36d2e24349acc04711e6b6366,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -1220,7 +1220,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1097617930
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1987,7 +1987,7 @@ GameObject:
   - component: {fileID: 1619840786}
   - component: {fileID: 1619840785}
   m_Layer: 5
-  m_Name: Level1
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2126,7 +2126,7 @@ GameObject:
   - component: {fileID: 1925665738}
   - component: {fileID: 1925665737}
   m_Layer: 5
-  m_Name: Level4
+  m_Name: 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2232,7 +2232,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4127019804496108478, guid: 293550d36d2e24349acc04711e6b6366,
+  m_Sprite: {fileID: 2541792876376491632, guid: 293550d36d2e24349acc04711e6b6366,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0

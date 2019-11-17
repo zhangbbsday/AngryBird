@@ -33,7 +33,7 @@ public class LevelScene : SceneState
     }
     protected override void AddStringMethod()
     {
-        stringMethod = new string[] { "Pause", "ReGame", "ReGamePause", "Chapter", "MainMenu", "Info", "Back", "Audio"};
+        stringMethod = new string[] { "Pause", "ReGame", "ReGamePause", "ChooseLevel", "MainMenu", "Info", "Back", "Audio"};
     }
 
     protected override void LinkOtherUI()
@@ -59,9 +59,9 @@ public class LevelScene : SceneState
     {
         ReGame();
     }
-    private void Chapter()
+    private void ChooseLevel()
     {
-        sceneControl.SetSceneState(new ChooseChapterScene(sceneControl), "ChooseChapterScene");
+        sceneControl.SetSceneState(new ChooseLevelScene(sceneControl), "ChooseLevelScene");
     }
     private void MainMenu()
     {
