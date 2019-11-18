@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioSystem
+public class AudioSystem : BaseSystem
 {
     public enum MusicName
     {
@@ -20,22 +20,48 @@ public class AudioSystem
 
     public bool IsOpenMusic { get; set; } = true;  //后面用持久化代替
 
+    private AudioSource musicSource;
     private Dictionary<string, AudioClip> musicClips = new Dictionary<string, AudioClip>();
     private Dictionary<string, AudioClip> soundClips = new Dictionary<string, AudioClip>();
 
-    public AudioSystem(AudioClip[] music, AudioClip[] sounds)
+    public AudioSystem(AudioClip[] music, AudioClip[] sounds, AudioSource audioSource)
     {
         AddAudioClip(music, sounds);
+        musicSource = audioSource;
     }
 
-    public void Play(AudioSource audioSource, MusicName name, bool isLoop = false)
+    protected override void Initialize()
+    {
+        
+    }
+
+    public override void Update()
+    {
+        if (musicSource == null)
+            return;
+
+        if (IsOpenMusic)
+        {
+            if (!musicSource.isPlaying)
+                musicSource.Play();
+        }
+        else
+            musicSource.Stop();
+    }
+
+    public override void Release()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Play(MusicName name, bool isLoop = false)
     {
         if (!IsOpenMusic)
             return;
 
-        audioSource.clip = musicClips[name.ToString()];
-        audioSource.loop = isLoop;
-        audioSource.Play();
+        musicSource.clip = musicClips[name.ToString()];
+        musicSource.loop = isLoop;
+        musicSource.Play();
     }
 
     public void Play(AudioSource audioSource, SoundsName name)
@@ -44,20 +70,6 @@ public class AudioSystem
             return;
 
         audioSource.PlayOneShot(soundClips[name.ToString()]);
-    }
-
-    public void AudioUpdate(AudioSource audioSource)
-    {
-        if (audioSource == null)
-            return;
-
-        if (IsOpenMusic)
-        {
-            if (!audioSource.isPlaying)
-                audioSource.Play();
-        }
-        else
-            audioSource.Stop();
     }
 
     private void AddAudioClip(AudioClip[] music, AudioClip[] sounds)

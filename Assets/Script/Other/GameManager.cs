@@ -61,10 +61,10 @@ public class GameManager : MonoBehaviour
     #region SystemControl
     private void SystemInitialize()
     {
-        AudioSystemControl = new AudioSystem(music, sounds);
+        AudioSystemControl = new AudioSystem(music, sounds, audioSource);
         MouseSystemControl = new MouseSystem(cursors);
 
-        AudioSystemControl.Play(audioSource, AudioSystem.MusicName.Title, true);
+        AudioSystemControl.Play(AudioSystem.MusicName.Title, true);
     }
 
     /// <summary>
@@ -79,8 +79,8 @@ public class GameManager : MonoBehaviour
 
     private void SystemUpdate()
     {
-        MouseSystemControl.UpdateCursor();
-        AudioSystemControl.AudioUpdate(audioSource);
+        MouseSystemControl.Update();
+        AudioSystemControl.Update();
     }
     #endregion
 
