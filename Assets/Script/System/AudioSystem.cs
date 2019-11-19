@@ -28,11 +28,13 @@ public class AudioSystem : BaseSystem
     {
         AddAudioClip(music, sounds);
         musicSource = audioSource;
+        Initialize();
     }
 
     protected override void Initialize()
     {
-        
+        IsRuning = true;
+        IsOpenMusic = bool.Parse(PlayerPrefs.GetString("IsOpenMusic", "True"));
     }
 
     public override void Update()
@@ -42,7 +44,7 @@ public class AudioSystem : BaseSystem
 
         if (IsOpenMusic)
         {
-            if (!musicSource.isPlaying)
+            if (!musicSource.isPlaying && musicSource.loop)
                 musicSource.Play();
         }
         else
@@ -51,7 +53,7 @@ public class AudioSystem : BaseSystem
 
     public override void Release()
     {
-        throw new NotImplementedException();
+        IsRuning = false;
     }
 
     public void Play(MusicName name, bool isLoop = false)

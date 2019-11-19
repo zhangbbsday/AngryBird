@@ -25,7 +25,7 @@ public class ChooseLevelScene : SceneState
 
     public override void OutScene()
     {
-
+        
     }
 
     public override void UpdateScene()

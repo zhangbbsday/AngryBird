@@ -25,6 +25,8 @@ public class LevelScene : SceneState
     {
         if (GameManager.Instance.IsPasue)
             GameManager.Instance.RecoverGame();
+
+        GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.Title, true);
     }
 
     public override void UpdateScene()
@@ -100,5 +102,7 @@ public class LevelScene : SceneState
             off.gameObject.SetActive(false);
         else
             off.gameObject.SetActive(true);
+
+        GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.BirdSong, false);
     }
 }

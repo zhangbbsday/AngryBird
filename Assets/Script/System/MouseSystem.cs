@@ -12,11 +12,12 @@ public class MouseSystem : BaseSystem
         normalCursor = cursors[0];
         clickCursor = cursors[1];
         pressCursor = cursors[2];
+        Initialize();
     }
 
     public override void Release()
     {
-        throw new System.NotImplementedException();
+        IsRuning = false;
     }
 
     public override void Update()
@@ -29,6 +30,6 @@ public class MouseSystem : BaseSystem
 
     protected override void Initialize()
     {
-        throw new System.NotImplementedException();
+        IsRuning = true;
     }
 }
