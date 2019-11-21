@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     public bool IsPasue { get; private set; }
     public AudioSystem AudioSystemControl { get; private set; }
     public MouseSystem MouseSystemControl { get; private set; }
+    public InputSystem InputSystemControl { get; private set; }
+    public SlingSystem SlingSystemControl { get; private set; }
+    public CameraSystem CameraSystemControl { get; private set; }
 
     private static GameManager instance;
     private AudioSource audioSource;
@@ -63,6 +66,9 @@ public class GameManager : MonoBehaviour
     {
         AudioSystemControl = new AudioSystem(music, sounds, audioSource);
         MouseSystemControl = new MouseSystem(cursors);
+        InputSystemControl = new InputSystem();
+        SlingSystemControl = new SlingSystem();
+        CameraSystemControl = new CameraSystem();
 
         AudioSystemControl.Play(AudioSystem.MusicName.Title, true);
     }
@@ -81,6 +87,9 @@ public class GameManager : MonoBehaviour
     {
         MouseSystemControl.Update();
         AudioSystemControl.Update();
+        InputSystemControl.Update();
+        SlingSystemControl.Update();
+        CameraSystemControl.Update();
     }
     #endregion
 

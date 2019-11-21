@@ -19,6 +19,7 @@ public class LevelScene : SceneState
         LinkButton();
         LinkOtherUI();
         StartAudio();
+        RunLevelSystem();
     }
 
     public override void OutScene()
@@ -26,7 +27,7 @@ public class LevelScene : SceneState
         if (GameManager.Instance.IsPasue)
             GameManager.Instance.RecoverGame();
 
-        GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.Title, true);
+        StopLevelSystem();
     }
 
     public override void UpdateScene()
@@ -102,7 +103,24 @@ public class LevelScene : SceneState
             off.gameObject.SetActive(false);
         else
             off.gameObject.SetActive(true);
+    }
+
+    private void RunLevelSystem()
+    {
+        GameManager.Instance.InputSystemControl.IsRuning = true;
+        GameManager.Instance.SlingSystemControl.IsRuning = true;
+        GameManager.Instance.CameraSystemControl.IsRuning = true;
 
         GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.BirdSong, false);
+        GameManager.Instance.SlingSystemControl.GetSling(GameObjectContainer.Instacne.FindGameObject("Sling"));
+        GameManager.Instance.CameraSystemControl.SetLevelCamera();
+    }
+
+    private void StopLevelSystem()
+    {
+        GameManager.Instance.InputSystemControl.IsRuning = false;
+        GameManager.Instance.CameraSystemControl.IsRuning = false;
+
+        GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.Title, true);
     }
 }
