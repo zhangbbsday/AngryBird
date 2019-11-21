@@ -3,40 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIContainer : MonoBehaviour
+public class GameObjectContainer : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> uiObject = null;
 
-    private static UIContainer instance;
-    public static UIContainer Instacne
+    private static GameObjectContainer instance;
+    public static GameObjectContainer Instacne
     {
         get
         {
             if (instance != null)
                 return instance;
 
-            Debug.LogWarning("不存在UIContainer!");
+            Debug.LogWarning("不存在GameObjectContainer!");
             return null;
         }
     }
 
     private void Start()
     {
-        instance = GetComponent<UIContainer>();
+        instance = GetComponent<GameObjectContainer>();
     }
 
-    public T FindUI<T>(string name)
+    public T FindGameObjectComponent<T>(string name)
     {
         if (name == null || name.Length == 0)
             return default;
         T find = default;
 
-        foreach (GameObject ui in uiObject)
+        foreach (GameObject g in uiObject)
         {
-            if (ui.name == name)
+            if (g.name == name)
             {
-                find = ui.GetComponent<T>();
+                find = g.GetComponent<T>();
                 break;
             }
         }
@@ -51,11 +51,11 @@ public class UIContainer : MonoBehaviour
 
         GameObject find = default;
 
-        foreach (GameObject ui in uiObject)
+        foreach (GameObject g in uiObject)
         {
-            if (ui.name == name)
+            if (g.name == name)
             {
-                find = ui;
+                find = g;
                 break;
             }
         }

@@ -40,7 +40,7 @@ public class ChooseLevelScene : SceneState
 
         for (int i = 1; i <= levelNumber; i++)
         {
-            Button b = UIContainer.Instacne.FindUI<Button>(i.ToString());
+            Button b = GameObjectContainer.Instacne.FindGameObjectComponent<Button>(i.ToString());
             b.onClick.AddListener(() => Level(b));
             if (i == 1)
                 levelSprite = b.GetComponent<Image>().sprite;

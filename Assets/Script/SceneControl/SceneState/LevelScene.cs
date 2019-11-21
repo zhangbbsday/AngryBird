@@ -40,12 +40,12 @@ public class LevelScene : SceneState
 
     protected override void LinkOtherUI()
     {
-        UIContainer.Instacne.FindUI<Text>("Level").text = $"1 - {levelIndex}";
-        UIContainer.Instacne.FindUI<Text>("BestScore").text = $"0";
-        UIContainer.Instacne.FindUI<Text>("NowScore").text = $"0";
+        GameObjectContainer.Instacne.FindGameObjectComponent<Text>("Level").text = $"1 - {levelIndex}";
+        GameObjectContainer.Instacne.FindGameObjectComponent<Text>("BestScore").text = $"0";
+        GameObjectContainer.Instacne.FindGameObjectComponent<Text>("NowScore").text = $"0";
 
-        off = UIContainer.Instacne.FindGameObject("Off");
-        pauseMenu = UIContainer.Instacne.FindGameObject("PauseMenu");
+        off = GameObjectContainer.Instacne.FindGameObject("Off");
+        pauseMenu = GameObjectContainer.Instacne.FindGameObject("PauseMenu");
     }
     private void Pause()
     {

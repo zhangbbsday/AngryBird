@@ -54,16 +54,16 @@ public class StartScene : SceneState
     }
     protected override void LinkOtherUI()
     {
-        moveGroud[0] = UIContainer.Instacne.FindUI<RectTransform>("GroundGroup");
+        moveGroud[0] = GameObjectContainer.Instacne.FindGameObjectComponent<RectTransform>("GroundGroup");
         moveGroud[1] = GameObject.Instantiate(moveGroud[0].gameObject, moveGroud[0].transform.parent).GetComponent<RectTransform>();
         moveGroud[1].localPosition = moveGroudStart;
 
-        moveBackgroud[0] = UIContainer.Instacne.FindUI<RectTransform>("MoveGroud");
+        moveBackgroud[0] = GameObjectContainer.Instacne.FindGameObjectComponent<RectTransform>("MoveGroud");
         moveBackgroud[1] = GameObject.Instantiate(moveBackgroud[0].gameObject, moveBackgroud[0].transform.parent).GetComponent<RectTransform>();
         moveBackgroud[1].localPosition = moveBackgroudStart;
 
-        optionPress = UIContainer.Instacne.FindGameObject("OptionPress");
-        morePress = UIContainer.Instacne.FindGameObject("MorePress");
+        optionPress = GameObjectContainer.Instacne.FindGameObject("OptionPress");
+        morePress = GameObjectContainer.Instacne.FindGameObject("MorePress");
     }
 
     #region ButtonMethod

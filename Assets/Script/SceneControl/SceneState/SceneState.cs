@@ -36,10 +36,10 @@ public abstract class SceneState
         {
             MethodInfo method = GetType().GetMethod(name, BindingFlags.Instance | BindingFlags.NonPublic);
             if (method.GetParameters().Length == 0)
-                UIContainer.Instacne.FindUI<Button>(name).onClick.AddListener(() => { method.Invoke(this, null); });
+                GameObjectContainer.Instacne.FindGameObjectComponent<Button>(name).onClick.AddListener(() => { method.Invoke(this, null); });
             else
             {
-                Button b = UIContainer.Instacne.FindUI<Button>(name);
+                Button b = GameObjectContainer.Instacne.FindGameObjectComponent<Button>(name);
                 b.onClick.AddListener(() => { method.Invoke(this, new Button[] { b }); });
             }          
         }
