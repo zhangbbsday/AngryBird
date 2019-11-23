@@ -113,7 +113,7 @@ public class LevelScene : SceneState
 
         GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.BirdSong, false);
         GameManager.Instance.SlingSystemControl.GetSling(GameObjectContainer.Instacne.FindGameObject("Sling"));
-        GameManager.Instance.CameraSystemControl.SetLevelCamera();
+        GameManager.Instance.CameraSystemControl.SetLevelCamera(GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Edges"));
     }
 
     private void StopLevelSystem()

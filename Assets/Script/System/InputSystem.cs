@@ -28,6 +28,8 @@ public class InputSystem : BaseSystem
         }
         else if (Input.GetMouseButtonUp(0))
             Launch();
+
+        ZoomCamera();
     }
 
     protected override void Initialize()
@@ -49,6 +51,16 @@ public class InputSystem : BaseSystem
     {
         if (GameManager.Instance.SlingSystemControl.IsDrag)
             return;
+
+        GameManager.Instance.CameraSystemControl.MoveCamera(Input.GetAxis("Mouse X"));
+    }
+
+    private void ZoomCamera()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") == 0)
+            return;
+
+        GameManager.Instance.CameraSystemControl.ZoomCamera(Input.GetAxis("Mouse ScrollWheel"));
     }
 
     private void Launch()
