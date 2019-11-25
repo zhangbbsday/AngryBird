@@ -15,10 +15,12 @@ public class AudioSystem : BaseSystem
 
     public enum SoundsName
     {
-
+        BirdSing,
+        PigSing,
+        PigSmile,
     }
 
-    public bool IsOpenMusic { get; set; } = true;  //后面用持久化代替
+    public bool IsOpenMusic { get; set; } = true;
 
     private AudioSource musicSource;
     private Dictionary<string, AudioClip> musicClips = new Dictionary<string, AudioClip>();
