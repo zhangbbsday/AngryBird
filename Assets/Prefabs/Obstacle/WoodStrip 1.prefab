@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6525539009320416714}
   m_Layer: 0
   m_Name: WoodStrip 1
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5708709272220134102}
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
   m_LocalPosition: {x: 2.7528877, y: -3.229476, z: -75.37109}
   m_LocalScale: {x: 1.7701335, y: 1.3900001, z: 1}
   m_Children: []

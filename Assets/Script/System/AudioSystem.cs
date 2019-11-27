@@ -13,13 +13,6 @@ public class AudioSystem : BaseSystem
         BirdSong
     }
 
-    public enum SoundsName
-    {
-        BirdSing,
-        PigSing,
-        PigSmile,
-    }
-
     public bool IsOpenMusic { get; set; } = true;
 
     private AudioSource musicSource;
@@ -68,12 +61,12 @@ public class AudioSystem : BaseSystem
         musicSource.Play();
     }
 
-    public void Play(AudioSource audioSource, SoundsName name)
+    public void Play(AudioSource audioSource, string name)
     {
         if (!IsOpenMusic)
             return;
 
-        audioSource.PlayOneShot(soundClips[name.ToString()]);
+        audioSource.PlayOneShot(soundClips[name]);
     }
 
     private void AddAudioClip(AudioClip[] music, AudioClip[] sounds)
@@ -85,7 +78,7 @@ public class AudioSystem : BaseSystem
 
         foreach (AudioClip audioClip in sounds)
         {
-            musicClips[audioClip.name] = audioClip;
+            soundClips[audioClip.name] = audioClip;
         }
     }
 }

@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Pig
+  - Bird
+  - Ground
+  - Glass
+  - Wood
+  - Rock
   layers:
   - Default
   - TransparentFX
