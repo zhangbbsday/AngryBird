@@ -77,28 +77,8 @@ public class Pig : MonoBehaviour, IDamageObject
 
     }
 
-    private void Smile()
+    private void SetHurtEffect()
     {
-        animator.SetTrigger("Smile");
-        GameManager.Instance.AudioSystemControl.Play(audioSource, PigAudio.PigSmile.ToString());
-    }
-
-    private void DestroyPrepare()
-    {
-        StopAllCoroutines();
-        animator.SetTrigger("Destroy");
-        GameManager.Instance.AudioSystemControl.Play(audioSource, PigAudio.PigDestroy.ToString());
-    }
-
-    private void DestroyThis()
-    {
-        Destroy(gameObject);
-    }
-
-    private void Hurt(float changeNum)
-    {
-        Hp -= changeNum;
-        ChangeHurtState();
         switch (hurtState)
         {
             case HurtState.Normal:
@@ -120,19 +100,44 @@ public class Pig : MonoBehaviour, IDamageObject
         }
     }
 
+    private void Smile()
+    {
+        animator.SetTrigger("Smile");
+        GameManager.Instance.AudioSystemControl.Play(audioSource, PigAudio.PigSmile.ToString());
+    }
+
+    private void DestroyPrepare()
+    {
+        StopAllCoroutines();
+        animator.SetTrigger("Destroy");
+        GameManager.Instance.AudioSystemControl.Play(audioSource, PigAudio.PigDestroy.ToString());
+    }
+
+    private void DestroyThis()
+    {
+        Destroy(gameObject);
+    }
+
+    public void ChangeHp(float changeNum)
+    {
+        Hp -= changeNum;
+        ChangeHurtState();
+        SetHurtEffect();
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (hurtState == HurtState.Dead)
+        if (hurtState == HurtState.Dead || collision.collider.CompareTag("Bird"))
             return;
 
         IDamageObject damageObject = collision.collider.GetComponent<IDamageObject>();
         float damageAdd = 1.0f;
 
         if (collision.relativeVelocity.magnitude > criticalSpeed)
-        {     
+        {
             if (damageObject != null)
                 damageAdd = damageObject.Damage;
-            Hurt((collision.relativeVelocity.magnitude - criticalSpeed) * damageAdd);
+            ChangeHp((collision.relativeVelocity.magnitude - criticalSpeed) * damageAdd);
         }
     }
 
