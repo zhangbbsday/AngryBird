@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pig : MonoBehaviour, IDamageObject
+public class Pig : MonoBehaviour, IPassiveDamageObject
 {
     enum HurtState
     {
@@ -25,12 +25,11 @@ public class Pig : MonoBehaviour, IDamageObject
 
     public float maxHp;
     public float Hp { get; set; }
-    public Rigidbody2D RigidbodySelf { get; private set; }
     public float Damage { get; set; }
 
-    private float criticalSpeed = 2;  //临界速度，大于此值会受伤
-    private float winkTimeMax = 3;
-    private float singTimeMax = 6;
+    private readonly float criticalSpeed = 2.0f;  //临界速度，大于此值会受伤
+    private readonly float winkTimeMax = 3.0f;
+    private readonly float singTimeMax = 6.0f;
     private Animator animator;
     private AudioSource audioSource;
     private IEnumerator winkMethod;
@@ -45,9 +44,8 @@ public class Pig : MonoBehaviour, IDamageObject
         StartCoroutine(singMethod);
     }
 
-    protected virtual void Initialize()
+    private void Initialize()
     {
-        RigidbodySelf = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
 
@@ -127,10 +125,10 @@ public class Pig : MonoBehaviour, IDamageObject
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (hurtState == HurtState.Dead || collision.collider.CompareTag("Bird"))
+        if (hurtState == HurtState.Dead || collision.collider.GetComponent<Bird>() != null)
             return;
 
-        IDamageObject damageObject = collision.collider.GetComponent<IDamageObject>();
+        IPassiveDamageObject damageObject = collision.collider.GetComponent<IPassiveDamageObject>();
         float damageAdd = 1.0f;
 
         if (collision.relativeVelocity.magnitude > criticalSpeed)

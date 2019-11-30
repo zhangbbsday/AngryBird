@@ -47,6 +47,7 @@ public class SlingSystem : BaseSystem
         else
             hold.position = (mousePosition - Origin).normalized * ((Vector2)hold.position - Origin).magnitude + Origin;
 
+        hold.eulerAngles = Vector3.forward * Mathf.Rad2Deg * Mathf.Atan2(mousePosition.y - Origin.y, mousePosition.x - Origin.x);
         slingLeftLine.SetPosition(1, hold.localPosition - slingLeftLine.transform.localPosition);
         slingRightLine.SetPosition(1, hold.localPosition - slingRightLine.transform.localPosition);
     }
@@ -55,6 +56,7 @@ public class SlingSystem : BaseSystem
     {
         IsDrag = false;
         hold.position = Origin;
+        hold.eulerAngles = Vector3.zero;
         slingLeftLine.SetPosition(1, hold.localPosition - slingLeftLine.transform.localPosition);
         slingRightLine.SetPosition(1, hold.localPosition - slingRightLine.transform.localPosition);
     }

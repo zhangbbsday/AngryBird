@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InputSystem : BaseSystem
 {
+    private bool isMovingCamera;
+
     public InputSystem()
     {
         Initialize(); 
@@ -27,7 +29,9 @@ public class InputSystem : BaseSystem
             MoveCamera();
         }
         else if (Input.GetMouseButtonUp(0))
+        {
             Launch();
+        }
 
         ZoomCamera();
     }
@@ -35,12 +39,15 @@ public class InputSystem : BaseSystem
     protected override void Initialize()
     {
         IsRuning = false;
+        isMovingCamera = false;
     }
 
     private void SetLinePosition()
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        
+
+        if (isMovingCamera)
+            return;
         if (!GameManager.Instance.SlingSystemControl.IsDrag && Vector2.Distance(GameManager.Instance.SlingSystemControl.Origin, mousePosition) > GameManager.Instance.SlingSystemControl.MaxLength)
             return;
 
@@ -53,6 +60,7 @@ public class InputSystem : BaseSystem
             return;
 
         GameManager.Instance.CameraSystemControl.MoveCamera(Input.GetAxis("Mouse X"));
+        isMovingCamera = true;
     }
 
     private void ZoomCamera()
@@ -65,6 +73,7 @@ public class InputSystem : BaseSystem
 
     private void Launch()
     {
+        isMovingCamera = false;
         GameManager.Instance.SlingSystemControl.Launch();
     }
 

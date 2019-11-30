@@ -5,11 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - Pig
-  - Bird
   - Ground
   - Glass
   - Wood
   - Rock
+  - Obstacle
+  - RedBird
+  - BlueBird
+  - YellowBird
+  - BlackBird
+  - WhiteBird
+  - GreenBird
   layers:
   - Default
   - TransparentFX

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour, IDamageObject
+public class Obstacle : MonoBehaviour, IPassiveDamageObject
 {
     enum HurtState
     {
@@ -22,9 +22,9 @@ public class Obstacle : MonoBehaviour, IDamageObject
 
     private HurtState hurtState;
     private SpriteRenderer sprite;
-    private float criticalSpeed = 6f;
     private AudioSource audioSource;
-    private float destoryTime = 0.1f;
+    private readonly float criticalSpeed = 6.0f;
+    private readonly float destoryTime = 0.1f;
 
     private void Start()
     {
@@ -85,10 +85,10 @@ public class Obstacle : MonoBehaviour, IDamageObject
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (hurtState == HurtState.Destroy || collision.collider.CompareTag("Bird"))
+        if (hurtState == HurtState.Destroy || collision.collider.GetComponent<Bird>() != null)
             return;
 
-        IDamageObject damageObject = collision.collider.GetComponent<IDamageObject>();
+        IPassiveDamageObject damageObject = collision.collider.GetComponent<IPassiveDamageObject>();
         float damageAdd = 1.0f;
 
         if (collision.relativeVelocity.magnitude > criticalSpeed)

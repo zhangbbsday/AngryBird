@@ -66,7 +66,6 @@ public class AudioSystem : BaseSystem
         if (!IsOpenMusic)
             return;
 
-        Debug.Log(name);
         audioSource.PlayOneShot(soundClips[name]);
     }
 

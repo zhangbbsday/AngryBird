@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-interface IDamageObject
+interface IPassiveDamageObject
 {
     float Hp { get; set; }
     float Damage { get; set; }
