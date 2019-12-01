@@ -30,7 +30,7 @@ public class InputSystem : BaseSystem
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            Launch();
+            ReleaseMouse();
         }
 
         ZoomCamera();
@@ -49,6 +49,8 @@ public class InputSystem : BaseSystem
         if (isMovingCamera)
             return;
         if (!GameManager.Instance.SlingSystemControl.IsDrag && Vector2.Distance(GameManager.Instance.SlingSystemControl.Origin, mousePosition) > GameManager.Instance.SlingSystemControl.MaxLength)
+            return;
+        if (!GameManager.Instance.SlingSystemControl.IsLoadBird)
             return;
 
         GameManager.Instance.SlingSystemControl.SetLinePosition(mousePosition);
@@ -71,10 +73,11 @@ public class InputSystem : BaseSystem
         GameManager.Instance.CameraSystemControl.ZoomCamera(Input.GetAxis("Mouse ScrollWheel"));
     }
 
-    private void Launch()
+    private void ReleaseMouse()
     {
         isMovingCamera = false;
-        GameManager.Instance.SlingSystemControl.Launch();
+        if (GameManager.Instance.SlingSystemControl.IsDrag && GameManager.Instance.SlingSystemControl.IsLoadBird)
+            GameManager.Instance.SlingSystemControl.Launch();
     }
 
     private void UseSkill()

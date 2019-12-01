@@ -28,11 +28,11 @@ public class Bird : MonoBehaviour
     }
 
     public float Damage { get; set; }
-    public BehaviorState State { get; set; }
+    public BehaviorState State { get; private set; }
 
     public float damage;
     
-    protected Rigidbody2D rigidbodySelf;
+    public Rigidbody2D RigidbodySelf { get; private set; }
     protected HurtState hurtState;
     protected AudioSource audioSource;
     protected Animator animator;
@@ -46,8 +46,8 @@ public class Bird : MonoBehaviour
     
     private readonly float pettyActionTimeMax = 6.0f;
     private readonly float pettyActionSpeed = 2.0f;
-    private readonly float jumpTime = 0.5f;
-    private readonly float jumpPrepareTime = 2.0f;
+    private readonly float jumpTime = 0.3f;
+    private readonly float jumpPrepareTime = 1.0f;
     private readonly float exitTime = 5.0f;
 
     private void Start()
@@ -57,8 +57,6 @@ public class Bird : MonoBehaviour
         StartCoroutine(yell);
         StartCoroutine(wink);
         StartCoroutine(pettyAction);
-
-        JumpToSling();
     }
 
     public void JumpToSling()
@@ -66,13 +64,16 @@ public class Bird : MonoBehaviour
         StopCoroutine(yell);
         StopCoroutine(pettyAction);
         StartCoroutine(Jump());
-        
     }
 
-    public void Launch()
+    public void Launch(Vector2 velocity)
     {
         StopCoroutine(wink);
         GameManager.Instance.AudioSystemControl.Play(audioSource, tag + "Launch");
+        GameManager.Instance.SlingSystemControl.IsLoadBird = false;
+
+        RigidbodySelf.velocity = velocity;
+        RigidbodySelf.isKinematic = false;
     }
 
     public virtual void Skill()
@@ -82,7 +83,7 @@ public class Bird : MonoBehaviour
 
     protected virtual void Initialize()
     {
-        rigidbodySelf = GetComponent<Rigidbody2D>();
+        RigidbodySelf = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
 
@@ -117,19 +118,22 @@ public class Bird : MonoBehaviour
     private IEnumerator Jump()
     {
         yield return new WaitForSeconds(jumpPrepareTime);
-
         State = BehaviorState.JumpToSling;
-        rigidbodySelf.isKinematic = true;
+        RigidbodySelf.isKinematic = true;
 
-        rigidbodySelf.velocity = new Vector2((GameManager.Instance.SlingSystemControl.Origin.x - rigidbodySelf.position.x) / jumpTime,
-            (GameManager.Instance.SlingSystemControl.Origin.y - rigidbodySelf.position.y) / jumpTime);
-        rigidbodySelf.angularVelocity = -360.0f / jumpTime;
+        RigidbodySelf.velocity = new Vector2((GameManager.Instance.SlingSystemControl.Origin.x - RigidbodySelf.position.x) / jumpTime,
+            (GameManager.Instance.SlingSystemControl.Origin.y - RigidbodySelf.position.y) / jumpTime);
+        RigidbodySelf.angularVelocity = -360.0f / jumpTime;
+
         yield return new WaitForSeconds(jumpTime);
-
-        rigidbodySelf.velocity = Vector2.zero;
-        rigidbodySelf.angularVelocity = 0;
-        rigidbodySelf.position = GameManager.Instance.SlingSystemControl.Origin;
+        RigidbodySelf.velocity = Vector2.zero;
+        RigidbodySelf.rotation = 0;
+        RigidbodySelf.angularVelocity = 0;
+        RigidbodySelf.position = GameManager.Instance.SlingSystemControl.Origin;
         State = BehaviorState.WaitForLaunch;
+
+        yield return new WaitForSeconds(0.01f);
+        GameManager.Instance.SlingSystemControl.IsLoadBird = true;
     }
 
     private IEnumerator PettyAction()
@@ -137,7 +141,7 @@ public class Bird : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(pettyActionTimeMax / 2, pettyActionTimeMax));
-            rigidbodySelf.velocity = Vector2.up * pettyActionSpeed;
+            RigidbodySelf.velocity = Vector2.up * pettyActionSpeed;
         }
     }
 

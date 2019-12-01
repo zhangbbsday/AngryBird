@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public InputSystem InputSystemControl { get; private set; }
     public SlingSystem SlingSystemControl { get; private set; }
     public CameraSystem CameraSystemControl { get; private set; }
+    public BirdControlSystem BirdControlSystemControl { get; private set; }
 
     private static GameManager instance;
     private AudioSource audioSource;
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviour
         InputSystemControl = new InputSystem();
         SlingSystemControl = new SlingSystem();
         CameraSystemControl = new CameraSystem();
+        BirdControlSystemControl = new BirdControlSystem();
 
         AudioSystemControl.Play(AudioSystem.MusicName.Title, true);
     }
@@ -90,6 +92,7 @@ public class GameManager : MonoBehaviour
         InputSystemControl.Update();
         SlingSystemControl.Update();
         CameraSystemControl.Update();
+        BirdControlSystemControl.Update();
     }
     #endregion
 

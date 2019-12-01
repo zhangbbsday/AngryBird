@@ -6,7 +6,9 @@ public class SlingSystem : BaseSystem
 {
     public GameObject Sling { get; set; }
     public Vector2 Origin { get; set; }
+    public Vector2 HoldPosition { get => hold.position; }
     public bool IsDrag { get; set; }
+    public bool IsLoadBird { get; set; }
     public float MaxLength { get; } = 2.0f;  //弹弓拉伸最大距离
     public float MinLength { get; } = 1.0f;   //弹弓拉伸最小距离
 
@@ -50,11 +52,16 @@ public class SlingSystem : BaseSystem
         hold.eulerAngles = Vector3.forward * Mathf.Rad2Deg * Mathf.Atan2(mousePosition.y - Origin.y, mousePosition.x - Origin.x);
         slingLeftLine.SetPosition(1, hold.localPosition - slingLeftLine.transform.localPosition);
         slingRightLine.SetPosition(1, hold.localPosition - slingRightLine.transform.localPosition);
+
+        GameManager.Instance.BirdControlSystemControl.SetPosition();
     }
 
     public void Launch()
     {
         IsDrag = false;
+
+        GameManager.Instance.BirdControlSystemControl.Launch(-(HoldPosition - Origin) * 10);
+
         hold.position = Origin;
         hold.eulerAngles = Vector3.zero;
         slingLeftLine.SetPosition(1, hold.localPosition - slingLeftLine.transform.localPosition);
