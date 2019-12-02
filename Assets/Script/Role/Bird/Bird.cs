@@ -38,6 +38,7 @@ public class Bird : MonoBehaviour
     protected Animator animator;
     protected float[] DamageCoefficient { get; set; }
 
+    private TrailRenderer trailRenderer;
     private IEnumerator yell;
     private IEnumerator wink;
     private IEnumerator pettyAction;
@@ -46,7 +47,7 @@ public class Bird : MonoBehaviour
     
     private readonly float pettyActionTimeMax = 6.0f;
     private readonly float pettyActionSpeed = 2.0f;
-    private readonly float jumpTime = 0.3f;
+    private readonly float jumpTime = 0.5f;
     private readonly float jumpPrepareTime = 1.0f;
     private readonly float exitTime = 5.0f;
 
@@ -71,9 +72,12 @@ public class Bird : MonoBehaviour
         StopCoroutine(wink);
         GameManager.Instance.AudioSystemControl.Play(audioSource, tag + "Launch");
         GameManager.Instance.SlingSystemControl.IsLoadBird = false;
-
+        
         RigidbodySelf.velocity = velocity;
         RigidbodySelf.isKinematic = false;
+
+        trailRenderer.emitting = true;
+        gameObject.layer = 9;
     }
 
     public virtual void Skill()
@@ -86,6 +90,7 @@ public class Bird : MonoBehaviour
         RigidbodySelf = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
+        trailRenderer = transform.parent.GetChild(1).GetComponent<TrailRenderer>();
 
         Damage = damage;
         State = BehaviorState.AtGround;
@@ -94,6 +99,7 @@ public class Bird : MonoBehaviour
         yell = Yell();
         wink = Wink();
         pettyAction = PettyAction();
+        trailRenderer.emitting = false;
     }
 
     private IEnumerator Yell()
@@ -159,6 +165,9 @@ public class Bird : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (gameObject.layer != 9)
+            return;
+
         IPassiveDamageObject passiveDamageObject = collision.collider.GetComponent<IPassiveDamageObject>();
         if (passiveDamageObject != null)
         {
@@ -174,6 +183,9 @@ public class Bird : MonoBehaviour
             GameManager.Instance.AudioSystemControl.Play(audioSource, tag + "Hurt");
             StartCoroutine(DeadBefore());
         }
+
         State = BehaviorState.FinalRoll;
+        trailRenderer.emitting = false;
+        GameManager.Instance.BirdControlSystemControl.ClearTrail();
     }
 }

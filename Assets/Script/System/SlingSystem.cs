@@ -9,8 +9,9 @@ public class SlingSystem : BaseSystem
     public Vector2 HoldPosition { get => hold.position; }
     public bool IsDrag { get; set; }
     public bool IsLoadBird { get; set; }
-    public float MaxLength { get; } = 2.0f;  //弹弓拉伸最大距离
+    public float MaxLength { get; } = 2.5f;  //弹弓拉伸最大距离
     public float MinLength { get; } = 1.0f;   //弹弓拉伸最小距离
+    public float SlingCoefficient { get; } = 60;
 
     private LineRenderer slingLeftLine;
     private LineRenderer slingRightLine;
@@ -58,14 +59,18 @@ public class SlingSystem : BaseSystem
 
     public void Launch()
     {
+        Vector2 length = Origin - HoldPosition;
         IsDrag = false;
-
-        GameManager.Instance.BirdControlSystemControl.Launch(-(HoldPosition - Origin) * 10);
 
         hold.position = Origin;
         hold.eulerAngles = Vector3.zero;
         slingLeftLine.SetPosition(1, hold.localPosition - slingLeftLine.transform.localPosition);
         slingRightLine.SetPosition(1, hold.localPosition - slingRightLine.transform.localPosition);
+
+        if (length.magnitude > MinLength)
+            GameManager.Instance.BirdControlSystemControl.Launch(length);
+        else
+            GameManager.Instance.BirdControlSystemControl.SetPosition();
     }
 
     protected override void Initialize()

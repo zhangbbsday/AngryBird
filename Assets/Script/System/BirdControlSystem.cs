@@ -5,6 +5,7 @@ using UnityEngine;
 public class BirdControlSystem : BaseSystem
 {
     private List<Bird> birdsList;
+    private List<TrailRenderer> trailRenderers;
     private Bird selectBird;
     private int birdIndex;
 
@@ -22,7 +23,8 @@ public class BirdControlSystem : BaseSystem
 
         for (int i = 0; i < birds.childCount; i++)
         {
-            birdsList.Add(birds.GetChild(i).GetComponent<Bird>());
+            birdsList.Add(birds.GetChild(i).GetChild(0).GetComponent<Bird>());
+            trailRenderers.Add(birds.GetChild(i).GetChild(1).GetComponent<TrailRenderer>());
         }
 
         selectBird = birdsList[birdIndex];
@@ -52,6 +54,7 @@ public class BirdControlSystem : BaseSystem
         IsRuning = false;
         birdIndex = 0;
         birdsList = new List<Bird>();
+        trailRenderers = new List<TrailRenderer>();
         selectBird = null;
     }
 
@@ -65,14 +68,16 @@ public class BirdControlSystem : BaseSystem
 
     public void SetPosition()
     {
-        if (selectBird.State != Bird.BehaviorState.WaitForLaunch || !GameManager.Instance.SlingSystemControl.IsDrag)
+        if (selectBird.State != Bird.BehaviorState.WaitForLaunch)
             return;
 
         selectBird.RigidbodySelf.position = GameManager.Instance.SlingSystemControl.HoldPosition;
     }
 
-    public void Launch(Vector2 velocity)
+    public void Launch(Vector2 length)
     {
+        Vector2 velocity = Mathf.Sqrt(GameManager.Instance.SlingSystemControl.SlingCoefficient / selectBird.RigidbodySelf.mass) * length;
+
         if (selectBird.State == Bird.BehaviorState.WaitForLaunch)
         {
             birdIndex++;
@@ -84,5 +89,14 @@ public class BirdControlSystem : BaseSystem
             selectBird = birdsList[birdIndex];
             selectBird.JumpToSling();
         }
+    }
+
+    public void ClearTrail()
+    {
+        if (birdIndex - 1 == 0)
+            return;
+
+        GameManager.Destroy(trailRenderers[0].gameObject);
+        trailRenderers.RemoveAt(0);
     }
 }
