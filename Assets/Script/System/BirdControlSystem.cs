@@ -6,6 +6,7 @@ public class BirdControlSystem : BaseSystem
 {
     private List<Bird> birdsList;
     private List<TrailRenderer> trailRenderers;
+    private Bird previousBird;
     private Bird selectBird;
     private int birdIndex;
 
@@ -24,7 +25,6 @@ public class BirdControlSystem : BaseSystem
         for (int i = 0; i < birds.childCount; i++)
         {
             birdsList.Add(birds.GetChild(i).GetChild(0).GetComponent<Bird>());
-            trailRenderers.Add(birds.GetChild(i).GetChild(1).GetComponent<TrailRenderer>());
         }
 
         selectBird = birdsList[birdIndex];
@@ -34,6 +34,8 @@ public class BirdControlSystem : BaseSystem
     private void ClearBird()
     {
         birdsList.Clear();
+        trailRenderers.Clear();
+        previousBird = null;
         selectBird = null;
         birdIndex = 0;
     }
@@ -47,6 +49,8 @@ public class BirdControlSystem : BaseSystem
     {
         if (!IsRuning)
             return;
+
+        SetTrail();
     }
 
     protected override void Initialize()
@@ -55,6 +59,7 @@ public class BirdControlSystem : BaseSystem
         birdIndex = 0;
         birdsList = new List<Bird>();
         trailRenderers = new List<TrailRenderer>();
+        previousBird = null;
         selectBird = null;
     }
 
@@ -66,12 +71,21 @@ public class BirdControlSystem : BaseSystem
         selectBird.JumpToSling();
     }
 
+    private void SetTrail()
+    {
+        if (previousBird == null)
+            return;
+
+        previousBird.TrailRenderer.transform.position = previousBird.RigidbodySelf.position;
+    }
+
     public void SetPosition()
     {
         if (selectBird.State != Bird.BehaviorState.WaitForLaunch)
             return;
 
         selectBird.RigidbodySelf.position = GameManager.Instance.SlingSystemControl.HoldPosition;
+        selectBird.TrailRenderer.transform.position = selectBird.RigidbodySelf.position;
     }
 
     public void Launch(Vector2 length)
@@ -84,6 +98,8 @@ public class BirdControlSystem : BaseSystem
             selectBird.Launch(velocity);
         }
 
+        previousBird = selectBird;
+        trailRenderers.Add(previousBird.TrailRenderer);
         if (birdIndex < birdsList.Count)
         {
             selectBird = birdsList[birdIndex];
@@ -91,12 +107,18 @@ public class BirdControlSystem : BaseSystem
         }
     }
 
+    public void UseSkill()
+    {
+        if (previousBird && previousBird.State == Bird.BehaviorState.Fly)
+            previousBird.Skill();
+    }
+
     public void ClearTrail()
     {
-        if (birdIndex - 1 == 0)
+        if (trailRenderers.Count < 2)
             return;
 
-        GameManager.Destroy(trailRenderers[0].gameObject);
+        GameObject.Destroy(trailRenderers[0].gameObject);
         trailRenderers.RemoveAt(0);
     }
 }

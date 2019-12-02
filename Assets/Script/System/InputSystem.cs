@@ -82,6 +82,6 @@ public class InputSystem : BaseSystem
 
     private void UseSkill()
     {
-        Debug.Log("UseSkill!");
+        GameManager.Instance.BirdControlSystemControl.UseSkill();
     }
 }

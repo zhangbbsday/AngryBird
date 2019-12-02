@@ -29,6 +29,7 @@ public class Bird : MonoBehaviour
 
     public float Damage { get; set; }
     public BehaviorState State { get; private set; }
+    public TrailRenderer TrailRenderer { get; private set; }
 
     public float damage;
     
@@ -38,7 +39,7 @@ public class Bird : MonoBehaviour
     protected Animator animator;
     protected float[] DamageCoefficient { get; set; }
 
-    private TrailRenderer trailRenderer;
+    
     private IEnumerator yell;
     private IEnumerator wink;
     private IEnumerator pettyAction;
@@ -50,6 +51,7 @@ public class Bird : MonoBehaviour
     private readonly float jumpTime = 0.5f;
     private readonly float jumpPrepareTime = 1.0f;
     private readonly float exitTime = 5.0f;
+    protected bool canUseSkill;
 
     private void Start()
     {
@@ -72,11 +74,13 @@ public class Bird : MonoBehaviour
         StopCoroutine(wink);
         GameManager.Instance.AudioSystemControl.Play(audioSource, tag + "Launch");
         GameManager.Instance.SlingSystemControl.IsLoadBird = false;
-        
+
+        animator.SetTrigger("Fly");
         RigidbodySelf.velocity = velocity;
         RigidbodySelf.isKinematic = false;
+        State = BehaviorState.Fly;
 
-        trailRenderer.emitting = true;
+        TrailRenderer.emitting = true;
         gameObject.layer = 9;
     }
 
@@ -90,16 +94,18 @@ public class Bird : MonoBehaviour
         RigidbodySelf = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
-        trailRenderer = transform.parent.GetChild(1).GetComponent<TrailRenderer>();
+        TrailRenderer = transform.parent.GetChild(1).GetComponent<TrailRenderer>();
 
         Damage = damage;
         State = BehaviorState.AtGround;
         hurtState = HurtState.Normal;
+        canUseSkill = true;
 
         yell = Yell();
         wink = Wink();
         pettyAction = PettyAction();
-        trailRenderer.emitting = false;
+        TrailRenderer.emitting = false;
+        TrailRenderer.transform.position = RigidbodySelf.position;
     }
 
     private IEnumerator Yell()
@@ -179,13 +185,14 @@ public class Bird : MonoBehaviour
 
         if (State == BehaviorState.Fly)
         {
+            TrailRenderer.emitting = false;
+
             animator.SetTrigger("Damaged");
             GameManager.Instance.AudioSystemControl.Play(audioSource, tag + "Hurt");
+            GameManager.Instance.BirdControlSystemControl.ClearTrail();      
             StartCoroutine(DeadBefore());
         }
 
-        State = BehaviorState.FinalRoll;
-        trailRenderer.emitting = false;
-        GameManager.Instance.BirdControlSystemControl.ClearTrail();
+        State = BehaviorState.FinalRoll;   
     }
 }
