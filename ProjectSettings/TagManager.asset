@@ -16,6 +16,7 @@ TagManager:
   - BlackBird
   - WhiteBird
   - GreenBird
+  - Edge
   layers:
   - Default
   - TransparentFX

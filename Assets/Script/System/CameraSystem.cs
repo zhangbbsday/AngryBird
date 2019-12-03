@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraSystem : BaseSystem
 {
     public bool IsZoom { get; private set; }
+    public bool IsFollow { get; set; }
 
     private Renderer leftEdge;
     private Renderer rightEdge;
@@ -33,8 +34,13 @@ public class CameraSystem : BaseSystem
         if (!IsRuning)
             return;
 
-        Move();
-        Zoom();
+        if (!IsFollow)
+        {
+            Move();
+            Zoom();
+        }
+        else
+            Follow();
     }
 
     public void SetLevelCamera(Transform edges)
@@ -80,10 +86,28 @@ public class CameraSystem : BaseSystem
             IsZoom = false;
     }
 
+    private void Follow()
+    {
+        Bird bird = GameManager.Instance.BirdControlSystemControl.FlyBird;
+        Vector2 offset;
+        if (!bird)
+            return;
+
+        offset = bird.RigidbodySelf.position - (Vector2)mainCamera.transform.position;
+        offset *= Vector2.right;
+
+        if ((leftEdge.isVisible && offset.x < 0) || (rightEdge.isVisible && offset.x > 0))
+            return;
+
+        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, mainCamera.transform.position + (Vector3)offset, 0.5f);
+    }
+
     protected override void Initialize()
     {
         IsRuning = true;
         IsZoom = false;
+        IsFollow = false;
+
         moveSpeed = 0;
         zoomSpeed = 0;
     }

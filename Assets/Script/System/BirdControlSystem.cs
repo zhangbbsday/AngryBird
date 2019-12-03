@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BirdControlSystem : BaseSystem
 {
+    public Bird FlyBird { get => previousBird; }
+
     private List<Bird> birdsList;
     private List<TrailRenderer> trailRenderers;
     private Bird previousBird;

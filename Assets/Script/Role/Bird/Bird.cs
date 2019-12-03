@@ -28,7 +28,7 @@ public class Bird : MonoBehaviour
     }
 
     public float Damage { get; set; }
-    public BehaviorState State { get; private set; }
+    public BehaviorState State { get; protected set; }
     public TrailRenderer TrailRenderer { get; private set; }
 
     public float damage;
@@ -43,8 +43,8 @@ public class Bird : MonoBehaviour
     private IEnumerator yell;
     private IEnumerator wink;
     private IEnumerator pettyAction;
-    private readonly float singTimeMax = 6.0f;
-    private readonly float winkTimeMax = 6.0f;
+    private readonly float singTimeMax = 12.0f;
+    private readonly float winkTimeMax = 8.0f;
     
     private readonly float pettyActionTimeMax = 6.0f;
     private readonly float pettyActionSpeed = 2.0f;
@@ -74,6 +74,7 @@ public class Bird : MonoBehaviour
         StopCoroutine(wink);
         GameManager.Instance.AudioSystemControl.Play(audioSource, tag + "Launch");
         GameManager.Instance.SlingSystemControl.IsLoadBird = false;
+        GameManager.Instance.CameraSystemControl.IsFollow = true;
 
         animator.SetTrigger("Fly");
         RigidbodySelf.velocity = velocity;
@@ -86,7 +87,11 @@ public class Bird : MonoBehaviour
 
     public virtual void Skill()
     {
-        //发动特技
+        if (!canUseSkill)
+            return;
+
+        GameManager.Instance.AudioSystemControl.Play(audioSource, tag + "Skill");
+        canUseSkill = false;
     }
 
     protected virtual void Initialize()
@@ -112,7 +117,7 @@ public class Bird : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(0, singTimeMax));
+            yield return new WaitForSeconds(Random.Range(singTimeMax / 2, singTimeMax));
             animator.SetTrigger("Yell");
             GameManager.Instance.AudioSystemControl.Play(audioSource, tag + "Yell");
         }
@@ -122,7 +127,7 @@ public class Bird : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(0, winkTimeMax));
+            yield return new WaitForSeconds(Random.Range(winkTimeMax / 2, winkTimeMax));
             animator.SetTrigger("Wink");
         }
     }
@@ -189,10 +194,23 @@ public class Bird : MonoBehaviour
 
             animator.SetTrigger("Damaged");
             GameManager.Instance.AudioSystemControl.Play(audioSource, tag + "Hurt");
-            GameManager.Instance.BirdControlSystemControl.ClearTrail();      
+            GameManager.Instance.BirdControlSystemControl.ClearTrail();
+            GameManager.Instance.CameraSystemControl.IsFollow = false;
+
             StartCoroutine(DeadBefore());
         }
 
         State = BehaviorState.FinalRoll;   
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Edge"))
+        {
+            Destroy(gameObject, exitTime);
+            GameManager.Instance.BirdControlSystemControl.ClearTrail();
+            GameManager.Instance.CameraSystemControl.IsFollow = false;
+            canUseSkill = false;
+        }
     }
 }
