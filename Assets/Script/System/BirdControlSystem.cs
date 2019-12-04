@@ -120,7 +120,7 @@ public class BirdControlSystem : BaseSystem
         if (trailRenderers.Count < 2)
             return;
 
-        GameObject.Destroy(trailRenderers[0].gameObject);
+        GameObject.Destroy(trailRenderers[0].transform.parent.gameObject);
         trailRenderers.RemoveAt(0);
     }
 }

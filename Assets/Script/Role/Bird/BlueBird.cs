@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BlueBird : Bird
 {
-    private GameObject birdContainer;
+    public BlueBirdClone birdContainer;
     private readonly int divideNumber = 2;
-    private bool isCreated = false;
+    private readonly float offsetY = 2.0f;
     
     public override void Skill()
     {
@@ -15,8 +15,10 @@ public class BlueBird : Bird
         
         for (int i = 0, j = -1; i < divideNumber; i++, j += 2)
         {
-            BlueBird createBird = Instantiate(birdContainer, RigidbodySelf.position, Quaternion.identity, 
-                TrailRenderer.transform).transform.GetChild(0).GetComponent<BlueBird>();
+            BlueBirdClone createBird = Instantiate(birdContainer, RigidbodySelf.position, Quaternion.identity,
+                transform.parent).GetComponent<BlueBirdClone>();
+
+            createBird.SetClone(this, j * offsetY, DamageCoefficient, exitTime);
         }
 
         base.Skill();
@@ -24,25 +26,7 @@ public class BlueBird : Bird
 
     protected override void Initialize()
     {
-        if (isCreated)
-            return;
-
-        base.Initialize();
         DamageCoefficient = new float[3] { 2.0f, 0.8f, 0.4f };
-        birdContainer = transform.parent.gameObject;
+        base.Initialize();
     }
-
-    //public void CreateSet()
-    //{
-    //    Initialize();
-
-    //    TrailRenderer.emitting = true;
-    //    RigidbodySelf.isKinematic = false;
-    //    State = BehaviorState.Fly;
-    //    canUseSkill = false;
-    //    isCreated = true;
-    //    gameObject.layer = 9;
-
-    //    StopAllCoroutines();
-    //}
 }

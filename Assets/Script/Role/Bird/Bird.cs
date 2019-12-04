@@ -20,7 +20,7 @@ public class Bird : MonoBehaviour
         Dead
     }
 
-    protected enum AttackObstacleType
+    public enum AttackObstacleType
     {
         Glass = 0,
         Wood = 1,
@@ -29,17 +29,17 @@ public class Bird : MonoBehaviour
 
     public float Damage { get; set; }
     public BehaviorState State { get; protected set; }
-    public TrailRenderer TrailRenderer { get; private set; }
+    public TrailRenderer TrailRenderer { get; protected set; }
 
     public float damage;
     
-    public Rigidbody2D RigidbodySelf { get; private set; }
+    public Rigidbody2D RigidbodySelf { get; protected set; }
     protected HurtState hurtState;
     protected AudioSource audioSource;
     protected Animator animator;
     protected float[] DamageCoefficient { get; set; }
+    protected readonly float exitTime = 5.0f;
 
-    
     private IEnumerator yell;
     private IEnumerator wink;
     private IEnumerator pettyAction;
@@ -50,16 +50,12 @@ public class Bird : MonoBehaviour
     private readonly float pettyActionSpeed = 2.0f;
     private readonly float jumpTime = 0.5f;
     private readonly float jumpPrepareTime = 1.0f;
-    private readonly float exitTime = 5.0f;
+    
     protected bool canUseSkill;
 
     private void Start()
     {
         Initialize();
-
-        StartCoroutine(yell);
-        StartCoroutine(wink);
-        StartCoroutine(pettyAction);
     }
 
     public void JumpToSling()
@@ -111,6 +107,10 @@ public class Bird : MonoBehaviour
         pettyAction = PettyAction();
         TrailRenderer.emitting = false;
         TrailRenderer.transform.position = RigidbodySelf.position;
+
+        StartCoroutine(yell);
+        StartCoroutine(wink);
+        StartCoroutine(pettyAction);
     }
 
     private IEnumerator Yell()
@@ -169,7 +169,7 @@ public class Bird : MonoBehaviour
         //粒子效果
     }
 
-    private void DestroyThis()
+    protected void DestroyThis()
     {
         Destroy(gameObject);
     }
@@ -177,6 +177,8 @@ public class Bird : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (gameObject.layer != 9)
+            return;
+        if (collision.collider.GetComponent<Bird>() || collision.collider.GetComponent<BlueBirdClone>())
             return;
 
         IPassiveDamageObject passiveDamageObject = collision.collider.GetComponent<IPassiveDamageObject>();
