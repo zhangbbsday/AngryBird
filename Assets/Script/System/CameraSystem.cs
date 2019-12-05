@@ -62,6 +62,12 @@ public class CameraSystem : BaseSystem
         IsZoom = true;
     }
 
+    public void StopFollow()
+    {
+        IsFollow = false;
+        MoveCamera(1);
+    }
+
     private void Move()
     {
         if ((leftEdge.isVisible && moveSpeed < 0) || (rightEdge.isVisible && moveSpeed > 0))

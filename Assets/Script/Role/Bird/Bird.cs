@@ -166,6 +166,7 @@ public class Bird : MonoBehaviour
     {
         yield return new WaitForSeconds(exitTime);
         animator.SetTrigger("Dead");
+        GameManager.Instance.AudioSystemControl.Play(audioSource, "BirdDestory");
         //粒子效果
     }
 
@@ -197,7 +198,7 @@ public class Bird : MonoBehaviour
             animator.SetTrigger("Damaged");
             GameManager.Instance.AudioSystemControl.Play(audioSource, tag + "Hurt");
             GameManager.Instance.BirdControlSystemControl.ClearTrail();
-            GameManager.Instance.CameraSystemControl.IsFollow = false;
+            GameManager.Instance.CameraSystemControl.StopFollow();
 
             StartCoroutine(DeadBefore());
         }
@@ -211,7 +212,7 @@ public class Bird : MonoBehaviour
         {
             Destroy(gameObject, exitTime);
             GameManager.Instance.BirdControlSystemControl.ClearTrail();
-            GameManager.Instance.CameraSystemControl.IsFollow = false;
+            GameManager.Instance.CameraSystemControl.StopFollow();
             canUseSkill = false;
         }
     }

@@ -34,7 +34,7 @@ public class BlackBird : Bird
         RigidbodySelf.isKinematic = true;
 
         GameManager.Instance.AudioSystemControl.Play(audioSource, tag + "Skill");
-        GameManager.Instance.CameraSystemControl.IsFollow = false;
+        GameManager.Instance.CameraSystemControl.StopFollow();
         animator.SetTrigger("Dead");
     }
 

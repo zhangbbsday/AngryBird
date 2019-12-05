@@ -9,10 +9,11 @@ public class SlingSystem : BaseSystem
     public Vector2 HoldPosition { get => hold.position; }
     public bool IsDrag { get; set; }
     public bool IsLoadBird { get; set; }
-    public float MaxLength { get; } = 2.5f;  //弹弓拉伸最大距离
+    public float MaxLength { get; } = 2.0f;  //弹弓拉伸最大距离
     public float MinLength { get; } = 1.0f;   //弹弓拉伸最小距离
-    public float SlingCoefficient { get; } = 10;
+    public float SlingCoefficient { get; } = 80;
 
+    private float[] slingAngleLimit = { -60, -120 };
     private LineRenderer slingLeftLine;
     private LineRenderer slingRightLine;
     private Transform hold;
@@ -45,15 +46,17 @@ public class SlingSystem : BaseSystem
     public void SetLinePosition(Vector2 mousePosition)
     {
         IsDrag = true;
-        if (Vector2.Distance(Origin, mousePosition) <= MaxLength)
-            hold.position = mousePosition;
-        else
-            hold.position = (mousePosition - Origin).normalized * ((Vector2)hold.position - Origin).magnitude + Origin;
+        float length = Mathf.Min(Vector2.Distance(Origin, mousePosition), MaxLength);
+        float angle = Mathf.Rad2Deg * Mathf.Atan2(hold.position.y - Origin.y, hold.position.x - Origin.x);
+        float mid = (slingAngleLimit[0] + slingAngleLimit[1]) / 2;
 
+        if (angle > slingAngleLimit[1] && angle < slingAngleLimit[0])
+            length = Mathf.Lerp(0, length, Mathf.Abs((mid - angle) / (slingAngleLimit[0] - mid)));
+      
+        hold.position = (mousePosition - Origin).normalized * length + Origin;
         hold.eulerAngles = Vector3.forward * Mathf.Rad2Deg * Mathf.Atan2(mousePosition.y - Origin.y, mousePosition.x - Origin.x);
         slingLeftLine.SetPosition(1, hold.localPosition - slingLeftLine.transform.localPosition);
         slingRightLine.SetPosition(1, hold.localPosition - slingRightLine.transform.localPosition);
-
         GameManager.Instance.BirdControlSystemControl.SetPosition();
     }
 
