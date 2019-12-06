@@ -32,7 +32,8 @@ public class Bird : MonoBehaviour
     public TrailRenderer TrailRenderer { get; protected set; }
 
     public float damage;
-    
+    public ParticleSystem particle;
+    public Sprite[] particleSprites;
     public Rigidbody2D RigidbodySelf { get; protected set; }
     protected HurtState hurtState;
     protected AudioSource audioSource;
@@ -50,7 +51,9 @@ public class Bird : MonoBehaviour
     private readonly float pettyActionSpeed = 2.0f;
     private readonly float jumpTime = 0.5f;
     private readonly float jumpPrepareTime = 1.0f;
-    
+    private readonly float criticalSpeed = 8.0f;
+
+
     protected bool canUseSkill;
 
     private void Start()
@@ -167,12 +170,21 @@ public class Bird : MonoBehaviour
         yield return new WaitForSeconds(exitTime);
         animator.SetTrigger("Dead");
         GameManager.Instance.AudioSystemControl.Play(audioSource, "BirdDestory");
-        //粒子效果
     }
 
     protected void DestroyThis()
     {
         Destroy(gameObject);
+    }
+
+    private void SetParticle()
+    {
+        ParticleSystem obj = GameObject.Instantiate(particle, RigidbodySelf.position, Quaternion.identity, transform.parent);
+        foreach (Sprite sprite in particleSprites)
+        {
+            obj.textureSheetAnimation.AddSprite(sprite);
+        } 
+        obj.Play();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -202,6 +214,9 @@ public class Bird : MonoBehaviour
 
             StartCoroutine(DeadBefore());
         }
+
+        if (collision.relativeVelocity.magnitude > criticalSpeed)
+            SetParticle();
 
         State = BehaviorState.FinalRoll;   
     }

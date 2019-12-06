@@ -19,12 +19,15 @@ public class Obstacle : MonoBehaviour, IPassiveDamageObject
     public Sprite[] sprites;
     public float damage;
     public float hpMax;
+    public ParticleSystem particle;
+    public Sprite[] particleSprites;
 
     private HurtState hurtState;
     private SpriteRenderer sprite;
     private AudioSource audioSource;
     private readonly float criticalSpeed = 6.0f;
     private readonly float destoryTime = 0.1f;
+    private readonly float effectExitTime = 1.5f;
 
     private void Start()
     {
@@ -83,8 +86,22 @@ public class Obstacle : MonoBehaviour, IPassiveDamageObject
         SetHurtEffect();
     }
 
+    private void SetParticle(Vector2 position)
+    {
+        ParticleSystem obj = GameObject.Instantiate(particle, position, Quaternion.identity);
+        foreach (Sprite sprite in particleSprites)
+        {
+            obj.textureSheetAnimation.AddSprite(sprite);
+        }
+        obj.Play();
+        Destroy(obj.gameObject, effectExitTime);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.relativeVelocity.magnitude > criticalSpeed)
+            SetParticle(collision.GetContact(0).point);
+
         if (hurtState == HurtState.Destroy || collision.collider.GetComponent<Bird>() != null)
             return;
 
