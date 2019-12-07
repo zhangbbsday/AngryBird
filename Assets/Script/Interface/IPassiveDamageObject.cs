@@ -6,5 +6,6 @@ interface IPassiveDamageObject
 {
     float Hp { get; set; }
     float Damage { get; set; }
-    void ChangeHp(float damage);
+    void ChangeHp(float damage, bool isBirdChange);
+    void ShowScore(int score);
 }

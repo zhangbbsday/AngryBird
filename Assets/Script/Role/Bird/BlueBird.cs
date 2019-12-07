@@ -18,7 +18,7 @@ public class BlueBird : Bird
             BlueBirdClone createBird = Instantiate(birdContainer, RigidbodySelf.position, Quaternion.identity,
                 transform.parent).GetComponent<BlueBirdClone>();
 
-            createBird.SetClone(this, j * offsetY, DamageCoefficient, exitTime);
+            createBird.SetClone(this, j * offsetY, DamageCoefficient, exitTime, criticalSpeed);
         }
 
         base.Skill();

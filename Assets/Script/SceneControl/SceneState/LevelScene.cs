@@ -111,11 +111,14 @@ public class LevelScene : SceneState
         GameManager.Instance.SlingSystemControl.IsRuning = true;
         GameManager.Instance.CameraSystemControl.IsRuning = true;
         GameManager.Instance.BirdControlSystemControl.IsRuning = true;
+        GameManager.Instance.ScoreSystemControl.IsRuning = true;
 
         GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.BirdSong, false);
         GameManager.Instance.SlingSystemControl.GetSling(GameObjectContainer.Instacne.FindGameObject("Sling"));
         GameManager.Instance.BirdControlSystemControl.GetBird(GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Birds"));
         GameManager.Instance.CameraSystemControl.SetLevelCamera(GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Edges"));
+        GameManager.Instance.ScoreSystemControl.SetScore(levelIndex, GameObjectContainer.Instacne.FindGameObjectComponent<Text>("BestScore")
+            , GameObjectContainer.Instacne.FindGameObjectComponent<Text>("NowScore"));
     }
 
     private void StopLevelSystem()
@@ -123,7 +126,9 @@ public class LevelScene : SceneState
         GameManager.Instance.InputSystemControl.IsRuning = false;
         GameManager.Instance.CameraSystemControl.IsRuning = false;
         GameManager.Instance.BirdControlSystemControl.IsRuning = false;
+        GameManager.Instance.ScoreSystemControl.IsRuning = false;
 
+        GameManager.Instance.ScoreSystemControl.SaveScore();
         GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.Title, true);
     }
 }

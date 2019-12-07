@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Pig : MonoBehaviour, IPassiveDamageObject
 {
@@ -30,11 +31,14 @@ public class Pig : MonoBehaviour, IPassiveDamageObject
     private readonly float criticalSpeed = 2.0f;  //临界速度，大于此值会受伤
     private readonly float winkTimeMax = 3.0f;
     private readonly float singTimeMax = 6.0f;
+    private Text text;
+    private Transform canvas;
     private Animator animator;
     private AudioSource audioSource;
     private IEnumerator winkMethod;
     private IEnumerator singMethod;
     private HurtState hurtState;
+    private readonly int maxScore = 5000;
 
     void Start()
     {
@@ -48,6 +52,8 @@ public class Pig : MonoBehaviour, IPassiveDamageObject
     {
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
+        text = GameObjectContainer.Instacne.FindGameObjectComponent<Text>("DamageScore");
+        canvas = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Canvas");
 
         winkMethod = Wink();
         singMethod = Sing();
@@ -116,11 +122,25 @@ public class Pig : MonoBehaviour, IPassiveDamageObject
         Destroy(gameObject);
     }
 
-    public void ChangeHp(float changeNum)
+    public void ChangeHp(float changeNum, bool isBirdChange = false)
     {
         Hp -= changeNum;
         ChangeHurtState();
         SetHurtEffect();
+
+        if (hurtState == HurtState.Dead)
+            ShowScore(maxScore);
+    }
+
+    public void ShowScore(int score)
+    {
+        Text t = GameObject.Instantiate(text, transform.position + Vector3.up, Quaternion.identity, canvas);
+        t.text = score.ToString();
+        t.color = Color.green;
+        Destroy(t.gameObject, 0.5f);
+
+        
+        GameManager.Instance.ScoreSystemControl.GetScore(score);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

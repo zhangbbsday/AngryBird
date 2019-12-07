@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BlueBirdClone : MonoBehaviour
 {
+    public ParticleSystem particle;
+    public Sprite[] particleSprites;
+
     private Bird.BehaviorState state;
     private Rigidbody2D rigidbodySelf;
     private Animator animator;
@@ -13,8 +16,10 @@ public class BlueBirdClone : MonoBehaviour
     private float damage;
     private float[] damageCoefficient;
     private float exitTime;
+    private float criticalSpeed;
 
-    public void SetClone(Bird blueBird, float offset, float[] coefficient, float exit)
+
+    public void SetClone(Bird blueBird, float offset, float[] coefficient, float exit, float damageSpeed)
     {
         rigidbodySelf = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -23,6 +28,7 @@ public class BlueBirdClone : MonoBehaviour
 
         damage = blueBird.Damage;
         damageCoefficient = coefficient;
+        criticalSpeed = damageSpeed;
         exitTime = exit;
         state = Bird.BehaviorState.Fly;
 
@@ -36,12 +42,12 @@ public class BlueBirdClone : MonoBehaviour
             return;
 
         IPassiveDamageObject passiveDamageObject = collision.collider.GetComponent<IPassiveDamageObject>();
-        if (passiveDamageObject != null)
+        if (passiveDamageObject != null && collision.relativeVelocity.magnitude > criticalSpeed)
         {
             if (passiveDamageObject is Obstacle obstacle)
-                passiveDamageObject.ChangeHp(damage * damageCoefficient[(int)System.Enum.Parse(typeof(Bird.AttackObstacleType), obstacle.tag)]);
+                passiveDamageObject.ChangeHp(damage * damageCoefficient[(int)System.Enum.Parse(typeof(Bird.AttackObstacleType), obstacle.tag)], true);
             else
-                passiveDamageObject.ChangeHp(damage);
+                passiveDamageObject.ChangeHp(damage, true);
         }
 
         if (state == Bird.BehaviorState.Fly)
@@ -53,6 +59,9 @@ public class BlueBirdClone : MonoBehaviour
 
             StartCoroutine(DeadBefore());
         }
+
+        if (collision.relativeVelocity.magnitude > criticalSpeed)
+            SetParticle();
 
         state = Bird.BehaviorState.FinalRoll;
     }
@@ -67,5 +76,15 @@ public class BlueBirdClone : MonoBehaviour
         yield return new WaitForSeconds(exitTime);
         animator.SetTrigger("Dead");
         //粒子效果
+    }
+
+    private void SetParticle()
+    {
+        ParticleSystem obj = GameObject.Instantiate(particle, rigidbodySelf.position, Quaternion.identity, transform.parent);
+        foreach (Sprite sprite in particleSprites)
+        {
+            obj.textureSheetAnimation.AddSprite(sprite);
+        }
+        obj.Play();
     }
 }

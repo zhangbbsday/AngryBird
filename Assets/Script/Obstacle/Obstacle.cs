@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Obstacle : MonoBehaviour, IPassiveDamageObject
 {
@@ -22,17 +23,24 @@ public class Obstacle : MonoBehaviour, IPassiveDamageObject
     public ParticleSystem particle;
     public Sprite[] particleSprites;
 
+    private Text text;
+    private Transform canvas;
     private HurtState hurtState;
     private SpriteRenderer sprite;
     private AudioSource audioSource;
     private readonly float criticalSpeed = 6.0f;
     private readonly float destoryTime = 0.1f;
     private readonly float effectExitTime = 1.5f;
+    private readonly int maxScore = 100;
+    private readonly int[] scoreRandom = { 10, 20, 30, 50 };
 
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
+        text = GameObjectContainer.Instacne.FindGameObjectComponent<Text>("DamageScore");
+        canvas = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Canvas");
+
 
         Hp = hpMax;
         Damage = damage;
@@ -79,11 +87,28 @@ public class Obstacle : MonoBehaviour, IPassiveDamageObject
         Destroy(gameObject);
     }
 
-    public void ChangeHp(float changeNum)
+    public void ChangeHp(float changeNum, bool isBirdChange = false)
     {
         Hp -= changeNum;
         ChangeHurtState();
         SetHurtEffect();
+
+        if (isBirdChange || hurtState == HurtState.Destroy)
+            ShowScore(maxScore);
+        
+    }
+
+    public void ShowScore(int score)
+    {
+        int scoreText = score;
+        if (hurtState != HurtState.Destroy)
+            scoreText = scoreRandom[Random.Range(0, scoreRandom.Length)];
+
+        Text t = GameObject.Instantiate(text, transform.position + Vector3.up, Quaternion.identity, canvas);
+        t.text = scoreText.ToString();
+        Destroy(t.gameObject, 0.5f);
+
+        GameManager.Instance.ScoreSystemControl.GetScore(scoreText);
     }
 
     private void SetParticle(Vector2 position)

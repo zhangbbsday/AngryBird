@@ -21,7 +21,7 @@ public class GameObjectContainer : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         instance = GetComponent<GameObjectContainer>();
     }

@@ -40,7 +40,8 @@ public class Bird : MonoBehaviour
     protected Animator animator;
     protected float[] DamageCoefficient { get; set; }
     protected readonly float exitTime = 5.0f;
-
+    protected readonly float criticalSpeed = 8.0f;
+   
     private IEnumerator yell;
     private IEnumerator wink;
     private IEnumerator pettyAction;
@@ -51,7 +52,6 @@ public class Bird : MonoBehaviour
     private readonly float pettyActionSpeed = 2.0f;
     private readonly float jumpTime = 0.5f;
     private readonly float jumpPrepareTime = 1.0f;
-    private readonly float criticalSpeed = 8.0f;
 
 
     protected bool canUseSkill;
@@ -195,12 +195,12 @@ public class Bird : MonoBehaviour
             return;
 
         IPassiveDamageObject passiveDamageObject = collision.collider.GetComponent<IPassiveDamageObject>();
-        if (passiveDamageObject != null)
+        if (passiveDamageObject != null && collision.relativeVelocity.magnitude > criticalSpeed)
         {
             if (passiveDamageObject is Obstacle obstacle)
-                passiveDamageObject.ChangeHp(Damage * DamageCoefficient[(int)System.Enum.Parse(typeof(AttackObstacleType), obstacle.tag)]);
+                passiveDamageObject.ChangeHp(Damage * DamageCoefficient[(int)System.Enum.Parse(typeof(AttackObstacleType), obstacle.tag)], true);
             else
-                passiveDamageObject.ChangeHp(Damage);
+                passiveDamageObject.ChangeHp(Damage, true);
         }
 
         if (State == BehaviorState.Fly)
