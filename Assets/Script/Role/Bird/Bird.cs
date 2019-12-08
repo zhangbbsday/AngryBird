@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Bird : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class Bird : MonoBehaviour
     protected HurtState hurtState;
     protected AudioSource audioSource;
     protected Animator animator;
+    protected Color scoreColor;
     protected float[] DamageCoefficient { get; set; }
     protected readonly float exitTime = 5.0f;
     protected readonly float criticalSpeed = 8.0f;
@@ -52,7 +54,9 @@ public class Bird : MonoBehaviour
     private readonly float pettyActionSpeed = 2.0f;
     private readonly float jumpTime = 0.5f;
     private readonly float jumpPrepareTime = 1.0f;
-
+    private Text text;
+    private Transform canvas;
+    private readonly int exitScore = 10000;
 
     protected bool canUseSkill;
 
@@ -93,12 +97,24 @@ public class Bird : MonoBehaviour
         canUseSkill = false;
     }
 
+    public void ShowScore()
+    {
+        Text t = GameObject.Instantiate(text, RigidbodySelf.position + Vector2.up, Quaternion.identity, canvas);
+        t.text = exitScore.ToString();
+        t.color = scoreColor;
+        Destroy(t.gameObject, 0.5f);
+
+        GameManager.Instance.ScoreSystemControl.GetScore(exitScore);
+    }
+
     protected virtual void Initialize()
     {
         RigidbodySelf = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         TrailRenderer = transform.parent.GetChild(1).GetComponent<TrailRenderer>();
+        text = GameObjectContainer.Instacne.FindGameObjectComponent<Text>("DamageScore");
+        canvas = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Canvas");
 
         Damage = damage;
         State = BehaviorState.AtGround;
@@ -152,7 +168,7 @@ public class Bird : MonoBehaviour
         RigidbodySelf.position = GameManager.Instance.SlingSystemControl.Origin;
         State = BehaviorState.WaitForLaunch;
 
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.5f);
         GameManager.Instance.SlingSystemControl.IsLoadBird = true;
     }
 

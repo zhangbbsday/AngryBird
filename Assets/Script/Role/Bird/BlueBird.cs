@@ -28,5 +28,6 @@ public class BlueBird : Bird
     {
         DamageCoefficient = new float[3] { 2.0f, 0.8f, 0.4f };
         base.Initialize();
+        scoreColor = Color.blue;
     }
 }

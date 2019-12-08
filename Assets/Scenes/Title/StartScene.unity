@@ -3856,8 +3856,10 @@ MonoBehaviour:
   - {fileID: 2800000, guid: a5017f4f1b5fe5843afa838b6c808349, type: 3}
   - {fileID: 2800000, guid: 15d717dc16165394e9b700ceec1134ef, type: 3}
   music:
-  - {fileID: 8300000, guid: 279134065f8264043a04abd4e7fb90e9, type: 3}
+  - {fileID: 8300000, guid: 97d5f34751f91c74fb9328746a7af7a7, type: 3}
+  - {fileID: 8300000, guid: 78eb839fd5fb7804a93f68f1b2f11dc5, type: 3}
   - {fileID: 8300000, guid: 3ebeabb7ec370ce439878b3ddf08d072, type: 3}
+  - {fileID: 8300000, guid: 25e443f8484553b41bb1516a6db39b4d, type: 3}
   - {fileID: 8300000, guid: 473d5e47cd1d71345b26ddcf15fb50a9, type: 3}
   - {fileID: 8300000, guid: b9794ac522ccd2343a881be79d020c33, type: 3}
   sounds:

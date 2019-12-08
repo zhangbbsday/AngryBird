@@ -20,5 +20,6 @@ public class YellowBird : Bird
     {
         base.Initialize();
         DamageCoefficient = new float[3] { 1.2f, 1.5f, 0.6f };
+        scoreColor = Color.yellow;
     }
 }

@@ -9,8 +9,10 @@ public class AudioSystem : BaseSystem
     {
         Title,
         StartAnimation,
-        LevelFinish,
-        BirdSong
+        LevelStart,
+        LevelClear,
+        LevelFail,
+        LevelFinish,  
     }
 
     public bool IsOpenMusic { get; set; } = true;

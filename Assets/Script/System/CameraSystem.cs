@@ -48,6 +48,9 @@ public class CameraSystem : BaseSystem
         mainCamera = Camera.main;
         leftEdge = edges.Find("Left").GetComponent<Renderer>();
         rightEdge = edges.Find("Right").GetComponent<Renderer>();
+        moveSpeed = 0;
+        IsFollow = false;
+        IsZoom = false;
     }
 
     public void MoveCamera(float mouseAxis)

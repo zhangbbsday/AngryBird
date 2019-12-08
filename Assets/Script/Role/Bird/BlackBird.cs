@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BlackBird : Bird
 {
@@ -54,5 +55,6 @@ public class BlackBird : Bird
     {
         base.Initialize();
         DamageCoefficient = new float[] { 1.0f, 1.0f, 1.0f };
+        scoreColor = Color.black;
     }
 }

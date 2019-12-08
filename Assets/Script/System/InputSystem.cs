@@ -18,7 +18,7 @@ public class InputSystem : BaseSystem
 
     public override void Update()
     {
-        if (!IsRuning)
+        if (!IsRuning || GameManager.Instance.JudgeSystemControl.IsJudged)
             return;
 
         if (Input.GetMouseButtonDown(0))

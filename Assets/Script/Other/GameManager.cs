@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public CameraSystem CameraSystemControl { get; private set; }
     public BirdControlSystem BirdControlSystemControl { get; private set; }
     public ScoreSystem ScoreSystemControl { get; private set; }
+    public JudgeSystem JudgeSystemControl { get; private set; }
 
     private static GameManager instance;
     private AudioSource audioSource;
@@ -73,6 +74,7 @@ public class GameManager : MonoBehaviour
         CameraSystemControl = new CameraSystem();
         BirdControlSystemControl = new BirdControlSystem();
         ScoreSystemControl = new ScoreSystem();
+        JudgeSystemControl = new JudgeSystem();
 
         AudioSystemControl.Play(AudioSystem.MusicName.Title, true);
     }
@@ -96,6 +98,7 @@ public class GameManager : MonoBehaviour
         CameraSystemControl.Update();
         BirdControlSystemControl.Update();
         ScoreSystemControl.Update();
+        JudgeSystemControl.Update();
     }
     #endregion
 

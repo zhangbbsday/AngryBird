@@ -11,6 +11,9 @@ public class ScoreSystem : BaseSystem
     private int levelNow;
     private Text bestScore;
     private Text nowScore;
+    private Text bestScoreClear;
+    private Text nowScoreClear;
+
 
     public override void Release()
     {
@@ -23,11 +26,13 @@ public class ScoreSystem : BaseSystem
             return;
     }
 
-    public void SetScore(int level, Text best, Text now)
+    public void SetScore(int level, Text best, Text now, Text bestClear, Text nowClear)
     {
         levelNow = level;
         bestScore = best;
         nowScore = now;
+        bestScoreClear = bestClear;
+        nowScoreClear = nowClear;
 
         BestScore = PlayerPrefs.GetInt("Level" + levelNow.ToString(), 0);
         NowScore = 0;
@@ -43,6 +48,8 @@ public class ScoreSystem : BaseSystem
 
         nowScore.text = NowScore.ToString();
         bestScore.text = BestScore.ToString();
+        nowScoreClear.text = NowScore.ToString();
+        bestScoreClear.text = BestScore.ToString();
     }
 
     public void SaveScore()

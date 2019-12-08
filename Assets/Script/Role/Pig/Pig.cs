@@ -104,7 +104,7 @@ public class Pig : MonoBehaviour, IPassiveDamageObject
         }
     }
 
-    private void Smile()
+    public void Smile()
     {
         animator.SetTrigger("Smile");
         GameManager.Instance.AudioSystemControl.Play(audioSource, PigAudio.PigSmile.ToString());

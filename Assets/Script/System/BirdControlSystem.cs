@@ -5,12 +5,23 @@ using UnityEngine;
 public class BirdControlSystem : BaseSystem
 {
     public Bird FlyBird { get => previousBird; }
-
+    public bool IsOver { 
+        get
+        {
+            foreach (Bird bird in birdsList)
+            {
+                if (bird != null)
+                    return false;
+            }
+            return true;
+        } 
+    }
     private List<Bird> birdsList;
     private List<TrailRenderer> trailRenderers;
     private Bird previousBird;
     private Bird selectBird;
     private int birdIndex;
+    private float addScoreGap = 1.0f;
 
     public BirdControlSystem()
     {
@@ -122,5 +133,18 @@ public class BirdControlSystem : BaseSystem
 
         GameObject.Destroy(trailRenderers[0].transform.parent.gameObject);
         trailRenderers.RemoveAt(0);
+    }
+
+    public IEnumerator AddBirdScore()
+    {
+        foreach (Bird bird in birdsList)
+        {
+            yield return new WaitForSeconds(addScoreGap);
+            if (bird == null || bird.State == Bird.BehaviorState.Fly || bird.State == Bird.BehaviorState.FinalRoll)
+                continue;
+
+            bird.ShowScore();
+        }
+        yield return new WaitForSeconds(addScoreGap);
     }
 }

@@ -5,9 +5,15 @@ using UnityEngine.UI;
 
 public class LevelScene : SceneState
 {
+    private const int LevelMax = 5;
     private int levelIndex;
+    private Transform pigs;
     private GameObject off;
     private GameObject pauseMenu;
+    private GameObject clearMenu;
+    private GameObject failMenu;
+    private float waitTime = 2.0f;
+
     public LevelScene(SceneControl sceneControl, int level) : base(sceneControl)
     {
         levelIndex = level;
@@ -20,6 +26,10 @@ public class LevelScene : SceneState
         LinkOtherUI();
         StartAudio();
         RunLevelSystem();
+
+        if (PlayerPrefs.GetInt("TrueLevel", 1) < levelIndex)
+            PlayerPrefs.SetInt("TrueLevel", levelIndex);
+
     }
 
     public override void OutScene()
@@ -36,18 +46,62 @@ public class LevelScene : SceneState
     }
     protected override void AddStringMethod()
     {
-        stringMethod = new string[] { "Pause", "ReGame", "ReGamePause", "ChooseLevel", "MainMenu", "Info", "Back", "Audio"};
+        stringMethod = new string[] { "Pause", "ReGame", "ReGamePause", "ChooseLevel", "MainMenu", "Info", 
+            "Back", "Audio", "ReGameClear", "ReGameFail", "ChooseLevelClear", "ChooseLevelFail", "NextLevel"};
     }
 
     protected override void LinkOtherUI()
     {
         GameObjectContainer.Instacne.FindGameObjectComponent<Text>("Level").text = $"1 - {levelIndex}";
-        GameObjectContainer.Instacne.FindGameObjectComponent<Text>("BestScore").text = $"0";
-        GameObjectContainer.Instacne.FindGameObjectComponent<Text>("NowScore").text = $"0";
+        GameObjectContainer.Instacne.FindGameObjectComponent<Text>("TitleClear1").text = $"1 - {levelIndex}";
+        GameObjectContainer.Instacne.FindGameObjectComponent<Text>("TitleFail1").text = $"1 - {levelIndex}";
+        pigs = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Pigs");
+
 
         off = GameObjectContainer.Instacne.FindGameObject("Off");
         pauseMenu = GameObjectContainer.Instacne.FindGameObject("PauseMenu");
+        clearMenu = GameObjectContainer.Instacne.FindGameObject("LevelClear");
+        failMenu = GameObjectContainer.Instacne.FindGameObject("LevelFail");
     }
+
+    private void JudgeVictory()
+    {
+        GameObject obj = new GameObject("SceneMono");
+        obj.AddComponent<Noone>().StartCoroutine(JudgePrepare(GameManager.Instance.JudgeSystemControl.JudgeState));
+    }
+
+    private IEnumerator JudgePrepare(JudgeSystem.JudgeStateType judgeState)
+    {
+        yield return new WaitForSeconds(waitTime);
+        if (judgeState == JudgeSystem.JudgeStateType.Clear)
+        {
+            GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.LevelClear);
+            yield return GameManager.Instance.BirdControlSystemControl.AddBirdScore();
+        }
+        else
+        {
+            for (int i = 0; i < pigs.childCount; i++)
+            {
+                pigs.GetChild(i).GetComponent<Pig>()?.Smile();
+            }
+            yield return new WaitForSeconds(waitTime);
+        }
+
+        GameManager.Instance.PauseGame();
+        switch (judgeState)
+        {
+            case JudgeSystem.JudgeStateType.Clear:
+                clearMenu.SetActive(true);
+                GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.LevelFinish);
+                break;
+            case JudgeSystem.JudgeStateType.Fail:
+                failMenu.SetActive(true);
+                GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.LevelFail);
+                break;
+        }
+    }
+
+    #region UI相关
     private void Pause()
     {
         GameManager.Instance.PauseGame();
@@ -62,15 +116,40 @@ public class LevelScene : SceneState
     {
         ReGame();
     }
+    private void ReGameClear()
+    {
+        ReGame();
+    }
+    private void ReGameFail()
+    {
+        ReGame();
+    }
     private void ChooseLevel()
     {
         sceneControl.SetSceneState(new ChooseLevelScene(sceneControl), "ChooseLevelScene");
     }
+    private void ChooseLevelClear()
+    {
+        ChooseLevel();
+    }
+
+    private void ChooseLevelFail()
+    {
+        ChooseLevel();
+    }
+
     private void MainMenu()
     {
         sceneControl.SetSceneState(new StartScene(sceneControl), "StartScene");
     }
 
+    private void NextLevel()
+    {
+        if (levelIndex + 1 > LevelMax)
+            return;
+
+        sceneControl.SetSceneState(new LevelScene(sceneControl, levelIndex + 1), "Level" + levelIndex.ToString());
+    }
     //未实现
     private void Info()
     {
@@ -105,6 +184,10 @@ public class LevelScene : SceneState
             off.gameObject.SetActive(true);
     }
 
+    #endregion
+
+    #region 系统相关
+
     private void RunLevelSystem()
     {
         GameManager.Instance.InputSystemControl.IsRuning = true;
@@ -112,13 +195,16 @@ public class LevelScene : SceneState
         GameManager.Instance.CameraSystemControl.IsRuning = true;
         GameManager.Instance.BirdControlSystemControl.IsRuning = true;
         GameManager.Instance.ScoreSystemControl.IsRuning = true;
+        GameManager.Instance.JudgeSystemControl.IsRuning = true;
 
-        GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.BirdSong, false);
+        GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.LevelStart, false);
         GameManager.Instance.SlingSystemControl.GetSling(GameObjectContainer.Instacne.FindGameObject("Sling"));
         GameManager.Instance.BirdControlSystemControl.GetBird(GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Birds"));
         GameManager.Instance.CameraSystemControl.SetLevelCamera(GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Edges"));
         GameManager.Instance.ScoreSystemControl.SetScore(levelIndex, GameObjectContainer.Instacne.FindGameObjectComponent<Text>("BestScore")
-            , GameObjectContainer.Instacne.FindGameObjectComponent<Text>("NowScore"));
+            , GameObjectContainer.Instacne.FindGameObjectComponent<Text>("NowScore"), GameObjectContainer.Instacne.FindGameObjectComponent<Text>("BestScoreClear")
+            , GameObjectContainer.Instacne.FindGameObjectComponent<Text>("NowScoreClear"));
+        GameManager.Instance.JudgeSystemControl.SetJudge(pigs, JudgeVictory);
     }
 
     private void StopLevelSystem()
@@ -127,8 +213,10 @@ public class LevelScene : SceneState
         GameManager.Instance.CameraSystemControl.IsRuning = false;
         GameManager.Instance.BirdControlSystemControl.IsRuning = false;
         GameManager.Instance.ScoreSystemControl.IsRuning = false;
+        GameManager.Instance.JudgeSystemControl.IsRuning = false;
 
         GameManager.Instance.ScoreSystemControl.SaveScore();
         GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.Title, true);
     }
+    #endregion
 }

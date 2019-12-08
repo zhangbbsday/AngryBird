@@ -28,5 +28,6 @@ public class WhiteBird : Bird
     {
         DamageCoefficient = new float[3] { 1.0f, 1.0f, 1.5f };
         base.Initialize();
+        scoreColor = Color.white;
     }
 }
