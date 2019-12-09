@@ -6,11 +6,21 @@ using System.Reflection;
 
 public class StartScene : SceneState
 {
-   
+    enum BirdType
+    {
+        Red = 0,
+        Blue = 1,
+        Yellow = 2,
+        Black = 3,
+        White = 4
+    }
+
     private RectTransform[] moveGroud = new RectTransform[2];
     private RectTransform[] moveBackgroud = new RectTransform[2];
     private GameObject optionPress;
     private GameObject morePress;
+    private Transform birdsContainer;
+    private Rigidbody2D[] birds = new Rigidbody2D[5];
 
     private float moveSpeed = 150f;
     private float moveBackgroundSpeed = 50f;
@@ -22,6 +32,8 @@ public class StartScene : SceneState
     private Vector2 moveBackgroudNew = new Vector2(2258, 0);
     private bool isClickedOption = false;
     private bool isClickedMore = false;
+    private int birdType = PlayerPrefs.GetInt("TrueLevel", 1);
+    private float birdExitTime = 5f;
 
     public StartScene(SceneControl sceneControl): base(sceneControl)
     {
@@ -64,9 +76,15 @@ public class StartScene : SceneState
 
         optionPress = GameObjectContainer.Instacne.FindGameObject("OptionPress");
         morePress = GameObjectContainer.Instacne.FindGameObject("MorePress");
+        birdsContainer = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Birds");
+        birds[0] = GameObjectContainer.Instacne.FindGameObjectComponent<Rigidbody2D>("RedBird");
+        birds[1] = GameObjectContainer.Instacne.FindGameObjectComponent<Rigidbody2D>("BlueBird");
+        birds[2] = GameObjectContainer.Instacne.FindGameObjectComponent<Rigidbody2D>("YellowBird");
+        birds[3] = GameObjectContainer.Instacne.FindGameObjectComponent<Rigidbody2D>("BlackBird");
+        birds[4] = GameObjectContainer.Instacne.FindGameObjectComponent<Rigidbody2D>("WhiteBird");
     }
 
-    #region ButtonMethod
+    #region 动画相关
     private void MoveGround()
     {
         if (moveGroud[1].localPosition.x > moveGroudOffest)
@@ -99,9 +117,23 @@ public class StartScene : SceneState
     }
     private void CreateRandomBird()
     {
-        //产生随机的鸟
-        //等后面再做
+        if (Random.Range(0, 1000) > 8)
+            return;
+
+        float x = Random.Range(-12.0f, 8.5f);
+        float y;
+        if (x <= -8)
+            y = Random.Range(-6f, 6f);
+        else
+            y = Random.Range(-6f, -4f);
+
+        Rigidbody2D bird = GameObject.Instantiate(birds[Random.Range(0, birdType)], new Vector2(x, y), Quaternion.identity, birdsContainer);
+        bird.velocity = new Vector2(Random.Range(1, 10), Random.Range(5, 10));
+        GameObject.Destroy(bird.gameObject, birdExitTime);
     }
+    #endregion
+
+    #region ButtonMethod
     private void StartGame()
     {
         sceneControl.SetSceneState(new ChooseChapterScene(sceneControl), "ChooseChapterScene");

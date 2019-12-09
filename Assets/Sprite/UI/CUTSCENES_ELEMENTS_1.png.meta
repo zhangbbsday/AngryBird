@@ -1,0 +1,571 @@
+fileFormatVersion: 2
+guid: 80ea48730d4a126448ecdb182889e999
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3774218864454931669
+    second: CUTSCENES_ELEMENTS_1_0
+  - first:
+      213: 923048983637947414
+    second: CUTSCENES_ELEMENTS_1_1
+  - first:
+      213: 5894715445601694571
+    second: CUTSCENES_ELEMENTS_1_2
+  - first:
+      213: -4236410254236248847
+    second: CUTSCENES_ELEMENTS_1_3
+  - first:
+      213: 5100575348278087052
+    second: CUTSCENES_ELEMENTS_1_4
+  - first:
+      213: -2910552611281792647
+    second: CUTSCENES_ELEMENTS_1_5
+  - first:
+      213: -7336171161805463340
+    second: CUTSCENES_ELEMENTS_1_6
+  - first:
+      213: -468870236350540969
+    second: CUTSCENES_ELEMENTS_1_7
+  - first:
+      213: -2252601537391981833
+    second: CUTSCENES_ELEMENTS_1_8
+  - first:
+      213: -990207714420305127
+    second: CUTSCENES_ELEMENTS_1_9
+  - first:
+      213: -4889887510424224809
+    second: CUTSCENES_ELEMENTS_1_10
+  - first:
+      213: -8095917876572915751
+    second: CUTSCENES_ELEMENTS_1_11
+  - first:
+      213: -8939664766816473796
+    second: CUTSCENES_ELEMENTS_1_12
+  - first:
+      213: -9046580059952400025
+    second: CUTSCENES_ELEMENTS_1_13
+  - first:
+      213: 5723916788238707477
+    second: CUTSCENES_ELEMENTS_1_14
+  - first:
+      213: -1662291737550932723
+    second: CUTSCENES_ELEMENTS_1_15
+  - first:
+      213: -8717052839447832184
+    second: CUTSCENES_ELEMENTS_1_16
+  - first:
+      213: -7934105346570243953
+    second: CUTSCENES_ELEMENTS_1_17
+  - first:
+      213: 5726793455896024250
+    second: CUTSCENES_ELEMENTS_1_18
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1292
+        width: 371
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 427396abdaba11844a89febc18b1c5a2
+      internalID: 3774218864454931669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_1
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 849
+        width: 624
+        height: 617
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e3957eac7b485a46b6eb0a1b798b239
+      internalID: 923048983637947414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 831
+        width: 326
+        height: 461
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4f93fe69f1808342965fab9d816e5f5
+      internalID: 5894715445601694571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_3
+      rect:
+        serializedVersion: 2
+        x: 949
+        y: 1190
+        width: 47
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 433dd85701015c44c9ffd15756568157
+      internalID: -4236410254236248847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_4
+      rect:
+        serializedVersion: 2
+        x: 947
+        y: 1099
+        width: 65
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 022e4e8511d89ab4187e34452581cea2
+      internalID: 5100575348278087052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_5
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 751
+        width: 247
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63580c170fe762e429347e2c2ca29fa5
+      internalID: -2910552611281792647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_6
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 829
+        width: 46
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7972a4961d6bad46bb3f4c5fed15a4c
+      internalID: -7336171161805463340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_7
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 732
+        width: 194
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8279eca921d7f2642b83b7ee436938d0
+      internalID: -468870236350540969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_8
+      rect:
+        serializedVersion: 2
+        x: 727
+        y: 822
+        width: 44
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab494d32f596a4442bacebae42090ab2
+      internalID: -2252601537391981833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_9
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 803
+        width: 25
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a355ae545b2f9a64e9003d7bda1da3ed
+      internalID: -990207714420305127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_10
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 812
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d450c9a3c9106f47b1b2b64da9862c8
+      internalID: -4889887510424224809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_11
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 739
+        width: 66
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c146d7bf04e7aa6469476fdf84dc2878
+      internalID: -8095917876572915751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_12
+      rect:
+        serializedVersion: 2
+        x: 727
+        y: 757
+        width: 61
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0d712dc1fc4bc44a87f188554105456
+      internalID: -8939664766816473796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_13
+      rect:
+        serializedVersion: 2
+        x: 860
+        y: 788
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b7cee506cc552143b1383cdb5cd7f8f
+      internalID: -9046580059952400025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 774
+        height: 523
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66342ec964fd7314f94252bda4b1c3b3
+      internalID: 5723916788238707477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 537
+        width: 430
+        height: 214
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bedd06a2743878f4d904ae39bdaa497a
+      internalID: -1662291737550932723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_16
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 448
+        width: 271
+        height: 308
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 643902e10a36a404dbbeef39b3215ce3
+      internalID: -8717052839447832184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_17
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 302
+        width: 288
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62a7ac60bf3fcb647b0927312f2f7b3c
+      internalID: -7934105346570243953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CUTSCENES_ELEMENTS_1_18
+      rect:
+        serializedVersion: 2
+        x: 781
+        y: 19
+        width: 104
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbb319e062362b04daaee1f1e528f4a9
+      internalID: 5726793455896024250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

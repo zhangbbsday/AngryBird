@@ -207,8 +207,10 @@ public class Bird : MonoBehaviour
     {
         if (gameObject.layer != 9)
             return;
-        if (collision.collider.GetComponent<Bird>() || collision.collider.GetComponent<BlueBirdClone>())
+        if (collision.collider.GetComponent<Bird>() || collision.collider.GetComponent<BlueBirdClone>() || collision.collider.GetComponent<Egg>())
             return;
+        if (RigidbodySelf.isKinematic)
+            RigidbodySelf.isKinematic = false;
 
         IPassiveDamageObject passiveDamageObject = collision.collider.GetComponent<IPassiveDamageObject>();
         if (passiveDamageObject != null && collision.relativeVelocity.magnitude > criticalSpeed)

@@ -6,12 +6,13 @@ using UnityEngine.UI;
 
 public class ChooseLevelScene : SceneState
 {
+    private int chapter;
     private int trueLevel;
     private const int levelNumber = 5;
     private Sprite levelSprite;
-    public ChooseLevelScene(SceneControl sceneControl) : base(sceneControl)
+    public ChooseLevelScene(SceneControl sceneControl, int chapterIndex = 1) : base(sceneControl)
     {
-
+        chapter = chapterIndex;
     }
 
     public override void IntoScene()
@@ -67,7 +68,10 @@ public class ChooseLevelScene : SceneState
     private void Level(Button button)
     {
         int level = int.Parse(button.name);
-        if (level <= trueLevel)
+
+        if (level == 1)
+            sceneControl.SetSceneState(new ChapterAnimation(sceneControl, chapter), "ChapterAnimation" + chapter.ToString());
+        else if (level <= trueLevel)
             sceneControl.SetSceneState(new LevelScene(sceneControl, level), "Level" + button.name);
     }
 }
