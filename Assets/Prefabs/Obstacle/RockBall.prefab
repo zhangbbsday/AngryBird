@@ -140,6 +140,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: da10e1f0e7cfda543b5f63a87eb28d34, type: 3}
   damage: 2
   hpMax: 25
+  particle: {fileID: 1352828929815299106, guid: 8066397fd8a488e4490d60eae8520b47,
+    type: 3}
+  particleSprites:
+  - {fileID: 21300000, guid: fac0c17c6b4c973439ae366e146a8385, type: 3}
+  - {fileID: 21300000, guid: 2bdfe366a3692354b93311228a8cad6f, type: 3}
+  - {fileID: 21300000, guid: d3587b54a7ca96c4297a8c60846dda8f, type: 3}
 --- !u!82 &8573763982560255287
 AudioSource:
   m_ObjectHideFlags: 0
