@@ -18,8 +18,13 @@ public class InputSystem : BaseSystem
 
     public override void Update()
     {
-        if (!IsRuning || GameManager.Instance.JudgeSystemControl.IsJudged)
+        if (!IsRuning)
             return;
+        if (GameManager.Instance.JudgeSystemControl.IsJudged)
+        {
+            ReleaseMouse();
+            return;
+        }
 
         if (Input.GetMouseButtonDown(0))
             UseSkill();
@@ -48,9 +53,9 @@ public class InputSystem : BaseSystem
 
         if (isMovingCamera)
             return;
-        if (!GameManager.Instance.SlingSystemControl.IsDrag && Vector2.Distance(GameManager.Instance.SlingSystemControl.Origin, mousePosition) > GameManager.Instance.SlingSystemControl.MaxLength)
-            return;
         if (!GameManager.Instance.SlingSystemControl.IsLoadBird)
+            return;
+        if (!GameManager.Instance.SlingSystemControl.IsDrag && Vector2.Distance(GameManager.Instance.SlingSystemControl.Origin, mousePosition) > GameManager.Instance.SlingSystemControl.MaxLength)
             return;
 
         GameManager.Instance.SlingSystemControl.SetLinePosition(mousePosition);

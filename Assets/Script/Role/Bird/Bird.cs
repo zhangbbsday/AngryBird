@@ -188,6 +188,12 @@ public class Bird : MonoBehaviour
         GameManager.Instance.AudioSystemControl.Play(audioSource, "BirdDestory");
     }
 
+    protected IEnumerator StopFollowing()
+    {
+        yield return new WaitForSeconds(exitTime * 0.3f);
+        GameManager.Instance.CameraSystemControl.StopFollow();
+    }
+
     protected void DestroyThis()
     {
         Destroy(gameObject);
@@ -228,8 +234,8 @@ public class Bird : MonoBehaviour
             animator.SetTrigger("Damaged");
             GameManager.Instance.AudioSystemControl.Play(audioSource, tag + "Hurt");
             GameManager.Instance.BirdControlSystemControl.ClearTrail();
-            GameManager.Instance.CameraSystemControl.StopFollow();
 
+            StartCoroutine(StopFollowing());
             StartCoroutine(DeadBefore());
         }
 

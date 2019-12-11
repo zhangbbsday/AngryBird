@@ -11,6 +11,8 @@ public class CameraSystem : BaseSystem
     private Renderer rightEdge;
 
     private Camera mainCamera;
+    private Vector3 startPosition = new Vector3(-8.4f, 0, -10);
+    private float startSize = 5.2f;
     private const float MaxMoveSpeed = 8.0f;
     private const float MaxZoomSpeed = 30.0f;
     private const float MinZoomSize = 5.0f;
@@ -48,6 +50,15 @@ public class CameraSystem : BaseSystem
         mainCamera = Camera.main;
         leftEdge = edges.Find("Left").GetComponent<Renderer>();
         rightEdge = edges.Find("Right").GetComponent<Renderer>();
+
+        SetStartCamera();
+    }
+
+    public void SetStartCamera()
+    {
+        mainCamera.transform.position = startPosition;
+        mainCamera.orthographicSize = startSize;
+
         moveSpeed = 0;
         IsFollow = false;
         IsZoom = false;

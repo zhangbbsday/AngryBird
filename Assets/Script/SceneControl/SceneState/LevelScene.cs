@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class LevelScene : SceneState
 {
-    private const int LevelMax = 5;
     private int levelIndex;
+    private Transform stars;
     private Transform pigs;
     private GameObject off;
     private GameObject pauseMenu;
@@ -56,12 +56,14 @@ public class LevelScene : SceneState
         GameObjectContainer.Instacne.FindGameObjectComponent<Text>("TitleClear1").text = $"1 - {levelIndex}";
         GameObjectContainer.Instacne.FindGameObjectComponent<Text>("TitleFail1").text = $"1 - {levelIndex}";
         pigs = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Pigs");
+        stars = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Stars");
 
 
         off = GameObjectContainer.Instacne.FindGameObject("Off");
         pauseMenu = GameObjectContainer.Instacne.FindGameObject("PauseMenu");
         clearMenu = GameObjectContainer.Instacne.FindGameObject("LevelClear");
         failMenu = GameObjectContainer.Instacne.FindGameObject("LevelFail");
+        
     }
 
     private void JudgeVictory()
@@ -72,10 +74,10 @@ public class LevelScene : SceneState
 
     private IEnumerator JudgePrepare(JudgeSystem.JudgeStateType judgeState)
     {
-        yield return new WaitForSeconds(waitTime);
         if (judgeState == JudgeSystem.JudgeStateType.Clear)
         {
             GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.LevelClear);
+            GameManager.Instance.CameraSystemControl.SetStartCamera();
             yield return GameManager.Instance.BirdControlSystemControl.AddBirdScore();
         }
         else
@@ -92,6 +94,7 @@ public class LevelScene : SceneState
         {
             case JudgeSystem.JudgeStateType.Clear:
                 clearMenu.SetActive(true);
+                ShowStar();
                 GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.LevelFinish);
                 break;
             case JudgeSystem.JudgeStateType.Fail:
@@ -145,10 +148,10 @@ public class LevelScene : SceneState
 
     private void NextLevel()
     {
-        if (levelIndex + 1 > LevelMax)
+        if (levelIndex + 1 > GameManager.levelNumber)
             return;
 
-        sceneControl.SetSceneState(new LevelScene(sceneControl, levelIndex + 1), "Level" + levelIndex.ToString());
+        sceneControl.SetSceneState(new LevelScene(sceneControl, levelIndex + 1), "Level" + (levelIndex + 1).ToString());
     }
     //未实现
     private void Info()
@@ -182,6 +185,18 @@ public class LevelScene : SceneState
             off.gameObject.SetActive(false);
         else
             off.gameObject.SetActive(true);
+    }
+
+    private void ShowStar()
+    {
+        for (int i = 0; i < stars.childCount; i++)
+        {
+            if (((float)GameManager.Instance.ScoreSystemControl.NowScore / 
+                GameManager.Instance.ScoreSystemControl.EveryLevelScore[levelIndex - 1]) >= GameManager.Instance.ScoreSystemControl.StarPercent[i])
+            {
+                stars.GetChild(i).gameObject.SetActive(true);
+            }
+        }    
     }
 
     #endregion

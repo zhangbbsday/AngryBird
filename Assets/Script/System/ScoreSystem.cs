@@ -7,6 +7,8 @@ public class ScoreSystem : BaseSystem
 {
     public int BestScore { get; private set; }
     public int NowScore { get; private set; }
+    public int[] EveryLevelScore { get; private set; }
+    public float[] StarPercent { get; } = { 0.3f, 0.6f, 0.9f };
 
     private int levelNow;
     private Text bestScore;
@@ -14,6 +16,10 @@ public class ScoreSystem : BaseSystem
     private Text bestScoreClear;
     private Text nowScoreClear;
 
+    public ScoreSystem()
+    {
+        Initialize();
+    }
 
     public override void Release()
     {
@@ -60,5 +66,6 @@ public class ScoreSystem : BaseSystem
     protected override void Initialize()
     {
         IsRuning = false;
+        EveryLevelScore = new int[GameManager.levelNumber] {40000, 40000, 40000, 40000, 40000};
     }
 }

@@ -15,6 +15,11 @@ public class JudgeSystem : BaseSystem
     public bool IsJudged { get; private set; }
     private Transform pigs;
 
+    public JudgeSystem()
+    {
+        Initialize();
+    }
+
     public override void Release()
     {
         IsRuning = false;
@@ -37,6 +42,7 @@ public class JudgeSystem : BaseSystem
 
     public void SetJudge(Transform pigsObject, Action action)
     {
+        Judge = null;
         pigs = pigsObject;
         Judge += action;
         IsJudged = false;
@@ -55,7 +61,6 @@ public class JudgeSystem : BaseSystem
             JudgeState = JudgeStateType.Fail;
 
         Judge?.Invoke();
-        Judge -= Judge;
         IsJudged = true;
     }
 }
