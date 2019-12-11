@@ -80,8 +80,8 @@ public class Bird : MonoBehaviour
         GameManager.Instance.CameraSystemControl.IsFollow = true;
 
         animator.SetTrigger("Fly");
-        RigidbodySelf.velocity = velocity;
         RigidbodySelf.isKinematic = false;
+        RigidbodySelf.velocity = velocity;
         State = BehaviorState.Fly;
 
         TrailRenderer.emitting = true;
@@ -114,7 +114,7 @@ public class Bird : MonoBehaviour
         animator = GetComponent<Animator>();
         TrailRenderer = transform.parent.GetChild(1).GetComponent<TrailRenderer>();
         text = GameObjectContainer.Instacne.FindGameObjectComponent<Text>("DamageScore");
-        canvas = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Canvas");
+        canvas = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("UI");
 
         Damage = damage;
         State = BehaviorState.AtGround;

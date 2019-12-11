@@ -53,7 +53,7 @@ public class Pig : MonoBehaviour, IPassiveDamageObject
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         text = GameObjectContainer.Instacne.FindGameObjectComponent<Text>("DamageScore");
-        canvas = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Canvas");
+        canvas = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("UI");
 
         winkMethod = Wink();
         singMethod = Sing();

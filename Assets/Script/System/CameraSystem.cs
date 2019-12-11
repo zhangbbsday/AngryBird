@@ -113,13 +113,14 @@ public class CameraSystem : BaseSystem
         if (!bird)
             return;
 
-        offset = bird.RigidbodySelf.position - (Vector2)mainCamera.transform.position;
+        offset = bird.transform.position - mainCamera.transform.position;
         offset *= Vector2.right;
 
         if ((leftEdge.isVisible && offset.x < 0) || (rightEdge.isVisible && offset.x > 0))
             return;
 
-        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, mainCamera.transform.position + (Vector3)offset, 0.5f);
+        //mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, mainCamera.transform.position + (Vector3)offset, Time.deltaTime * followingSpeed);
+        mainCamera.transform.position += (Vector3)offset;
     }
 
     protected override void Initialize()
