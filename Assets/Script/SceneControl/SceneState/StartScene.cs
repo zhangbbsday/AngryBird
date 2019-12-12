@@ -6,14 +6,6 @@ using System.Reflection;
 
 public class StartScene : SceneState
 {
-    enum BirdType
-    {
-        Red = 0,
-        Blue = 1,
-        Yellow = 2,
-        Black = 3,
-        White = 4
-    }
 
     private RectTransform[] moveGroud = new RectTransform[2];
     private RectTransform[] moveBackgroud = new RectTransform[2];
@@ -32,7 +24,7 @@ public class StartScene : SceneState
     private Vector2 moveBackgroudNew = new Vector2(2258, 0);
     private bool isClickedOption = false;
     private bool isClickedMore = false;
-    private int birdType = PlayerPrefs.GetInt("TrueLevel", 1);
+    private int BirdType { get => Mathf.Min(PlayerPrefs.GetInt("TrueLevel", 1), 5); }
     private float birdExitTime = 5f;
 
     public StartScene(SceneControl sceneControl): base(sceneControl)
@@ -127,7 +119,7 @@ public class StartScene : SceneState
         else
             y = Random.Range(-6f, -4f);
 
-        Rigidbody2D bird = GameObject.Instantiate(birds[Random.Range(0, birdType)], new Vector2(x, y), Quaternion.identity, birdsContainer);
+        Rigidbody2D bird = GameObject.Instantiate(birds[Random.Range(0, BirdType)], new Vector2(x, y), Quaternion.identity, birdsContainer);
         bird.velocity = new Vector2(Random.Range(1, 10), Random.Range(5, 10));
         GameObject.Destroy(bird.gameObject, birdExitTime);
     }

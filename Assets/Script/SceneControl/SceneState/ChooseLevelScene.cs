@@ -8,7 +8,6 @@ public class ChooseLevelScene : SceneState
 {
     private int chapter;
     private int trueLevel;
-    private const int levelNumber = 5;
     private Sprite levelSprite;
     public ChooseLevelScene(SceneControl sceneControl, int chapterIndex = 1) : base(sceneControl)
     {
@@ -38,16 +37,17 @@ public class ChooseLevelScene : SceneState
     protected override void LinkButton()
     {
         base.LinkButton();
+        Transform buttons = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Levels");
 
-        for (int i = 1; i <= levelNumber; i++)
+        for (int i = 0; i < buttons.childCount; i++)
         {
-            Button b = GameObjectContainer.Instacne.FindGameObjectComponent<Button>(i.ToString());
+            Button b = buttons.GetChild(i).GetComponent<Button>();
             b.onClick.AddListener(() => Level(b));
-            if (i == 1)
+            if (i == 0)
                 levelSprite = b.GetComponent<Image>().sprite;
             else
             {
-                if (i <= trueLevel)
+                if (int.Parse(b.name) <= trueLevel)
                 {
                     b.GetComponent<Image>().sprite = levelSprite;
                     b.transform.Find("Text").gameObject.SetActive(true);

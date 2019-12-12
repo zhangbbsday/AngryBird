@@ -9,9 +9,9 @@ public class SlingSystem : BaseSystem
     public Vector2 HoldPosition { get => hold.position; }
     public bool IsDrag { get; set; }
     public bool IsLoadBird { get; set; }
-    public float MaxLength { get; } = 1.7f;  //弹弓拉伸最大距离
+    public float MaxLength { get; } = 1.5f;  //弹弓拉伸最大距离
     public float MinLength { get; } = 1.0f;   //弹弓拉伸最小距离
-    public float SlingCoefficient { get; } = 80;
+    public float SlingCoefficient { get; } = 100;
 
     private float[] slingAngleLimit = { -60, -120 };
     private LineRenderer slingLeftLine;

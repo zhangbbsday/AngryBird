@@ -66,6 +66,6 @@ public class ScoreSystem : BaseSystem
     protected override void Initialize()
     {
         IsRuning = false;
-        EveryLevelScore = new int[GameManager.levelNumber] {40000, 40000, 40000, 40000, 40000};
+        EveryLevelScore = new int[GameManager.LevelNumber] { 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000 };
     }
 }

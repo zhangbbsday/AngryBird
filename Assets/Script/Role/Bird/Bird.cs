@@ -116,7 +116,7 @@ public class Bird : MonoBehaviour
         animator = GetComponent<Animator>();
         TrailRenderer = transform.parent.GetChild(1).GetComponent<TrailRenderer>();
         text = GameObjectContainer.Instacne.FindGameObjectComponent<Text>("DamageScore");
-        canvas = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("UI");
+        canvas = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("ScoreUI");
         skillEffect = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Skill");
 
         Damage = damage;

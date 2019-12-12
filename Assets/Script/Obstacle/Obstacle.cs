@@ -39,7 +39,7 @@ public class Obstacle : MonoBehaviour, IPassiveDamageObject
         sprite = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
         text = GameObjectContainer.Instacne.FindGameObjectComponent<Text>("DamageScore");
-        canvas = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("UI");
+        canvas = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("ScoreUI");
 
 
         Hp = hpMax;

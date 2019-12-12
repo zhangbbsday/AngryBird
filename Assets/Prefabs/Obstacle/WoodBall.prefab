@@ -138,7 +138,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: df138ff76182e134a872e47f52f41255, type: 3}
   - {fileID: 21300000, guid: 26ba8d7d59e4bce4f9aaede060b9b1ab, type: 3}
   - {fileID: 21300000, guid: 0016c51bcb2032b428242fcc1676db35, type: 3}
-  damage: 1.2
+  damage: 2.5
   hpMax: 12
   particle: {fileID: 1352828929815299106, guid: 8066397fd8a488e4490d60eae8520b47,
     type: 3}
@@ -167,7 +167,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 8
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

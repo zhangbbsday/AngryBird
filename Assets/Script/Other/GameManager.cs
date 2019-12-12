@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public const int levelNumber = 5;
+    public const int LevelNumber = 10;
     public Texture2D[] cursors;
     public AudioClip[] music;
     public AudioClip[] sounds;

@@ -30,7 +30,7 @@ public class Pig : MonoBehaviour, IPassiveDamageObject
 
     private readonly float criticalSpeed = 2.0f;  //临界速度，大于此值会受伤
     private readonly float winkTimeMax = 3.0f;
-    private readonly float singTimeMax = 6.0f;
+    private readonly float singTimeMax = 8.0f;
     private Text text;
     private Transform canvas;
     private Animator animator;
@@ -53,7 +53,7 @@ public class Pig : MonoBehaviour, IPassiveDamageObject
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         text = GameObjectContainer.Instacne.FindGameObjectComponent<Text>("DamageScore");
-        canvas = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("UI");
+        canvas = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("ScoreUI");
 
         winkMethod = Wink();
         singMethod = Sing();
@@ -172,9 +172,9 @@ public class Pig : MonoBehaviour, IPassiveDamageObject
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(0, singTimeMax));
+            yield return new WaitForSeconds(Random.Range(singTimeMax/ 2, singTimeMax));
             GameManager.Instance.AudioSystemControl.Play(audioSource, PigAudio.PigSing1.ToString());
-            yield return new WaitForSeconds(Random.Range(0, singTimeMax));
+            yield return new WaitForSeconds(Random.Range(singTimeMax/ 2, singTimeMax));
             GameManager.Instance.AudioSystemControl.Play(audioSource, PigAudio.PigSing2.ToString());
         }
     }

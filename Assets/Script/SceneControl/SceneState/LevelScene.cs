@@ -74,6 +74,7 @@ public class LevelScene : SceneState
 
     private IEnumerator JudgePrepare(JudgeSystem.JudgeStateType judgeState)
     {
+        yield return new WaitForSeconds(waitTime);
         if (judgeState == JudgeSystem.JudgeStateType.Clear)
         {
             GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.LevelClear);
@@ -88,7 +89,6 @@ public class LevelScene : SceneState
             }
             yield return new WaitForSeconds(waitTime);
         }
-
         GameManager.Instance.PauseGame();
         switch (judgeState)
         {
@@ -148,7 +148,7 @@ public class LevelScene : SceneState
 
     private void NextLevel()
     {
-        if (levelIndex + 1 > GameManager.levelNumber)
+        if (levelIndex + 1 > GameManager.LevelNumber)
             return;
 
         sceneControl.SetSceneState(new LevelScene(sceneControl, levelIndex + 1), "Level" + (levelIndex + 1).ToString());
