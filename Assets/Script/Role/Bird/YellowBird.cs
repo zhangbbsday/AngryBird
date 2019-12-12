@@ -5,6 +5,7 @@ using UnityEngine;
 public class YellowBird : Bird
 {
     private float addSpeed = 2.0f;
+    private float addDamage = 1.5f;
 
     public override void Skill()
     {
@@ -13,6 +14,7 @@ public class YellowBird : Bird
 
         animator.SetTrigger("Skill");
         RigidbodySelf.velocity *= addSpeed;
+        Damage *= addDamage;
         base.Skill();
     }
 

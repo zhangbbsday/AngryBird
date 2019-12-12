@@ -149,7 +149,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 04371167501a81a439c4e5cefe902f5e, type: 3}
   - {fileID: 21300000, guid: 8456954d027888a498b25e5423feff34, type: 3}
   damage: 2
-  hpMax: 25
+  hpMax: 20
   particle: {fileID: 1352828929815299106, guid: 8066397fd8a488e4490d60eae8520b47,
     type: 3}
   particleSprites:

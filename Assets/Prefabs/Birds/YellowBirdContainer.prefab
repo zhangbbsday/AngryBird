@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5017f8b6c696c2a42a3e75480a9e27f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 8
+  damage: 10
   particle: {fileID: 485775573191413895, guid: 7c0eb2a7c7ac7d14c8da4d0af444ac8d, type: 3}
   particleSprites:
   - {fileID: 21300000, guid: 11b99e9a606c95b449238dc2bc6c0f05, type: 3}
@@ -280,7 +280,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8126259043512394978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 8.96, y: 4.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8126259044180814054}

@@ -75,7 +75,6 @@ public class BlueBirdClone : MonoBehaviour
     {
         yield return new WaitForSeconds(exitTime);
         animator.SetTrigger("Dead");
-        //粒子效果
     }
 
     private void SetParticle()

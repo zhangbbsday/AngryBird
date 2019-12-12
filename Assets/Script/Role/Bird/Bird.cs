@@ -56,6 +56,7 @@ public class Bird : MonoBehaviour
     private readonly float jumpPrepareTime = 1.0f;
     private Text text;
     private Transform canvas;
+    private Transform skillEffect;
     private readonly int exitScore = 10000;
 
     protected bool canUseSkill;
@@ -94,6 +95,7 @@ public class Bird : MonoBehaviour
             return;
 
         GameManager.Instance.AudioSystemControl.Play(audioSource, tag + "Skill");
+        GameObject.Instantiate(skillEffect, RigidbodySelf.position, Quaternion.identity, transform.parent);
         canUseSkill = false;
     }
 
@@ -115,6 +117,7 @@ public class Bird : MonoBehaviour
         TrailRenderer = transform.parent.GetChild(1).GetComponent<TrailRenderer>();
         text = GameObjectContainer.Instacne.FindGameObjectComponent<Text>("DamageScore");
         canvas = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("UI");
+        skillEffect = GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Skill");
 
         Damage = damage;
         State = BehaviorState.AtGround;

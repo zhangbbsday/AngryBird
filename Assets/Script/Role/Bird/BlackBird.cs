@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BlackBird : Bird
 {
-    private float explosionRadius = 5f;
+    private float explosionRadius = 4.5f;
     private float explosionForce = 500f;
 
     public override void Skill()
@@ -28,7 +28,7 @@ public class BlackBird : Bird
             if (!rigidbody || passiveDamageObject == null)
                 continue;
             AddForce(rigidbody);
-            passiveDamageObject.Hp -= Damage;
+            passiveDamageObject.Hp -= Damage * 1.5f;
         }
 
         RigidbodySelf.velocity = Vector2.zero;
@@ -54,7 +54,7 @@ public class BlackBird : Bird
     protected override void Initialize()
     {
         base.Initialize();
-        DamageCoefficient = new float[] { 1.0f, 1.0f, 1.0f };
+        DamageCoefficient = new float[] { 2.0f, 2.0f, 2.0f };
         scoreColor = Color.black;
     }
 }

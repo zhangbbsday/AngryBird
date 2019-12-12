@@ -408,7 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7048940dd4bc1de458202c2336d146b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 4
+  damage: 8
   particle: {fileID: 485775573191413895, guid: 7c0eb2a7c7ac7d14c8da4d0af444ac8d, type: 3}
   particleSprites:
   - {fileID: 21300000, guid: 83a55e09cc3ecb54facae6c7b651ac12, type: 3}

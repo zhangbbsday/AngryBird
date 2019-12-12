@@ -26,7 +26,7 @@ public class BlueBird : Bird
 
     protected override void Initialize()
     {
-        DamageCoefficient = new float[3] { 2.0f, 0.8f, 0.4f };
+        DamageCoefficient = new float[3] { 1.5f, 0.8f, 0.2f };
         base.Initialize();
         scoreColor = Color.blue;
     }
