@@ -26,10 +26,6 @@ public class LevelScene : SceneState
         LinkOtherUI();
         StartAudio();
         RunLevelSystem();
-
-        if (PlayerPrefs.GetInt("TrueLevel", 1) < levelIndex)
-            PlayerPrefs.SetInt("TrueLevel", levelIndex);
-
     }
 
     public override void OutScene()
@@ -102,6 +98,9 @@ public class LevelScene : SceneState
                 GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.LevelFail);
                 break;
         }
+
+        if (PlayerPrefs.GetInt("TrueLevel", 1) < levelIndex + 1)
+            PlayerPrefs.SetInt("TrueLevel", levelIndex + 1);
     }
 
     #region UI相关
