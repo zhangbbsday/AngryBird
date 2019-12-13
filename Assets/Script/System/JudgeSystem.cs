@@ -55,9 +55,9 @@ public class JudgeSystem : BaseSystem
         if (!(pigs.childCount == 0 || GameManager.Instance.BirdControlSystemControl.IsOver))
             return;
 
-        if ((pigs.childCount == 0 && !GameManager.Instance.BirdControlSystemControl.IsOver) || (pigs.childCount == 0 && GameManager.Instance.BirdControlSystemControl.IsOver))
+        if (pigs.childCount == 0)
             JudgeState = JudgeStateType.Clear;
-        else if (pigs.childCount != 0 && GameManager.Instance.BirdControlSystemControl.IsOver)
+        else if (GameManager.Instance.BirdControlSystemControl.IsOver)
             JudgeState = JudgeStateType.Fail;
 
         Judge?.Invoke();

@@ -19,7 +19,7 @@ public class WhiteBird : Bird
             .Initialize(explosionRadius, explosionForce, Damage * 2f);
         animator.SetTrigger("Skill");
 
-        RigidbodySelf.isKinematic = true;
+        RigidbodySelf.gravityScale = 0;
         RigidbodySelf.velocity += Vector2.up * eggForce;
         base.Skill();
     }

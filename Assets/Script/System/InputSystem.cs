@@ -58,6 +58,7 @@ public class InputSystem : BaseSystem
         if (!GameManager.Instance.SlingSystemControl.IsDrag && Vector2.Distance(GameManager.Instance.SlingSystemControl.Origin, mousePosition) > GameManager.Instance.SlingSystemControl.MaxLength)
             return;
 
+        GameManager.Instance.CameraSystemControl.MoveCamera(0);
         GameManager.Instance.SlingSystemControl.SetLinePosition(mousePosition);
     }
 

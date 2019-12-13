@@ -58,6 +58,7 @@ public class Bird : MonoBehaviour
     private Transform canvas;
     private Transform skillEffect;
     private readonly int exitScore = 10000;
+    private float g;
 
     protected bool canUseSkill;
 
@@ -123,6 +124,7 @@ public class Bird : MonoBehaviour
         State = BehaviorState.AtGround;
         hurtState = HurtState.Normal;
         canUseSkill = true;
+        g = RigidbodySelf.gravityScale;
 
         yell = Yell();
         wink = Wink();
@@ -218,8 +220,8 @@ public class Bird : MonoBehaviour
             return;
         if (collision.collider.GetComponent<Bird>() || collision.collider.GetComponent<BlueBirdClone>() || collision.collider.GetComponent<Egg>())
             return;
-        if (RigidbodySelf.isKinematic)
-            RigidbodySelf.isKinematic = false;
+        if (Mathf.Approximately(RigidbodySelf.gravityScale, 0))
+            RigidbodySelf.gravityScale = g;
 
         IPassiveDamageObject passiveDamageObject = collision.collider.GetComponent<IPassiveDamageObject>();
         if (passiveDamageObject != null && collision.relativeVelocity.magnitude > criticalSpeed)

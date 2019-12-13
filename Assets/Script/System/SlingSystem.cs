@@ -11,7 +11,7 @@ public class SlingSystem : BaseSystem
     public bool IsLoadBird { get; set; }
     public float MaxLength { get; } = 1.5f;  //弹弓拉伸最大距离
     public float MinLength { get; } = 1.0f;   //弹弓拉伸最小距离
-    public float SlingCoefficient { get; } = 100;
+    public float SlingCoefficient { get; } = 120;
 
     private float[] slingAngleLimit = { -60, -120 };
     private LineRenderer slingLeftLine;
