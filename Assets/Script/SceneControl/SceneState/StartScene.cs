@@ -172,7 +172,10 @@ public class StartScene : SceneState
     private void StartAudio()
     {
         if (GameManager.Instance.AudioSystemControl.IsOpenMusic)
+        {
             optionPress.transform.Find("Off").gameObject.SetActive(false);
+            GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.Title, true);
+        }
         else
             optionPress.transform.Find("Off").gameObject.SetActive(true);
     }

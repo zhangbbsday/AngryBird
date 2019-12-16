@@ -76,8 +76,6 @@ public class GameManager : MonoBehaviour
         BirdControlSystemControl = new BirdControlSystem();
         ScoreSystemControl = new ScoreSystem();
         JudgeSystemControl = new JudgeSystem();
-
-        AudioSystemControl.Play(AudioSystem.MusicName.Title, true);
     }
 
     /// <summary>

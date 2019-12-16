@@ -7,6 +7,7 @@ public class AudioSystem : BaseSystem
 {
     public enum MusicName
     {
+        Noone,
         Title,
         StartAnimation,
         LevelStart,
@@ -55,7 +56,7 @@ public class AudioSystem : BaseSystem
 
     public void Play(MusicName name, bool isLoop = false)
     {
-        if (!IsOpenMusic)
+        if (!IsOpenMusic || name == MusicName.Noone)
             return;
 
         musicSource.clip = musicClips[name.ToString()];

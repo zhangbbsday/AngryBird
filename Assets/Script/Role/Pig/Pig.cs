@@ -159,6 +159,14 @@ public class Pig : MonoBehaviour, IPassiveDamageObject
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Edge"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private IEnumerator Wink()
     {
         while (true)

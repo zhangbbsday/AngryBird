@@ -18,7 +18,7 @@ public class InputSystem : BaseSystem
 
     public override void Update()
     {
-        if (!IsRuning)
+        if (!IsRuning || GameManager.Instance.IsPasue)
             return;
         if (GameManager.Instance.JudgeSystemControl.IsJudged)
         {

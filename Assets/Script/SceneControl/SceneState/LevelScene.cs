@@ -92,15 +92,14 @@ public class LevelScene : SceneState
                 clearMenu.SetActive(true);
                 ShowStar();
                 GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.LevelFinish);
+                if (PlayerPrefs.GetInt("TrueLevel", 1) < levelIndex + 1)
+                    PlayerPrefs.SetInt("TrueLevel", levelIndex + 1);
                 break;
             case JudgeSystem.JudgeStateType.Fail:
                 failMenu.SetActive(true);
                 GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.LevelFail);
                 break;
         }
-
-        if (PlayerPrefs.GetInt("TrueLevel", 1) < levelIndex + 1)
-            PlayerPrefs.SetInt("TrueLevel", levelIndex + 1);
     }
 
     #region UI相关
@@ -211,7 +210,7 @@ public class LevelScene : SceneState
         GameManager.Instance.ScoreSystemControl.IsRuning = true;
         GameManager.Instance.JudgeSystemControl.IsRuning = true;
 
-        GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.LevelStart, false);
+        GameManager.Instance.AudioSystemControl.Play(AudioSystem.MusicName.LevelStart, true);
         GameManager.Instance.SlingSystemControl.GetSling(GameObjectContainer.Instacne.FindGameObject("Sling"));
         GameManager.Instance.BirdControlSystemControl.GetBird(GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Birds"));
         GameManager.Instance.CameraSystemControl.SetLevelCamera(GameObjectContainer.Instacne.FindGameObjectComponent<Transform>("Edges"));
